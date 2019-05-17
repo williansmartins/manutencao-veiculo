@@ -2,35 +2,21 @@ package com.williansmartins.manutencaoveiculo.model;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-import lombok.Data;
-
-@Data
-@Entity
-@Table(name = "manutencao")
 public class Manutencao {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "user_id")
 	private int id;
 	private int id_veiculo;
 	private int id_usuario;
 	private Date data;
 	private Categoria categoria;
 	private int kilometragem;
+	private String observacoes;
 
 	public Manutencao() {
 
 	}
 
-	public Manutencao(int id, int id_veiculo, int id_usuario, Date data, Categoria categoria, int kilometragem) {
+	public Manutencao(int id, int id_veiculo, int id_usuario, Date data, Categoria categoria, int kilometragem, String observacoes) {
 		super();
 		this.id = id;
 		this.id_veiculo = id_veiculo;
@@ -38,6 +24,7 @@ public class Manutencao {
 		this.data = data;
 		this.categoria = categoria;
 		this.kilometragem = kilometragem;
+		this.observacoes = observacoes;
 	}
 
 	public Date getData() {
@@ -88,8 +75,12 @@ public class Manutencao {
 		this.id_veiculo = id_veiculo;
 	}
 
-}
+	public String getObservacoes() {
+		return observacoes;
+	}
 
-enum Categoria {
+	public void setObservacoes(String observacoes) {
+		this.observacoes = observacoes;
+	}
 
 }
