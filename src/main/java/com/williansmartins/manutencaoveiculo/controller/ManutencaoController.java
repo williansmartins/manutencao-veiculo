@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.williansmartins.manutencaoveiculo.dao.DAO;
 import com.williansmartins.manutencaoveiculo.model.Categoria;
 import com.williansmartins.manutencaoveiculo.model.Manutencao;
 
@@ -25,6 +26,15 @@ public class ManutencaoController {
 	public String getManutencao() {
 		return "{\"users\":[{\"name\":\"Lucas\", \"country\":\"Brazil\"}," +
 		           "{\"name\":\"Jackie\",\"country\":\"China\"}]}";
+	}
+
+	@RequestMapping("/inserirCarro")
+	@ResponseBody
+	public String inserirCarro() {
+		DAO.inserir("Honda", "FIT", "2010");
+		
+		return "{\"inserido\":[{\"name\":\"Lucas\", \"country\":\"Brazil\"}," +
+				"{\"name\":\"Jackie\",\"country\":\"China\"}]}";
 	}
 	
 	@RequestMapping(value="", method=RequestMethod.POST)  
