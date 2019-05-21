@@ -1,5 +1,6 @@
 package com.williansmartins.manutencaoveiculo.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -18,25 +19,32 @@ import com.williansmartins.manutencaoveiculo.model.Carro;
 public class CarrosController {
 	
 	CarroDAO dao = new CarroDAO();
-
-	@RequestMapping(value="", method=RequestMethod.POST)  
-	@ResponseBody
-	public Carro inserir(@RequestBody Carro entrada) {
-		String fabricante = entrada.getFabricante();
-		String modelo = entrada.getModelo();
-		String ano = entrada.getAno();
-		
-		dao.inserir(fabricante, modelo, ano);
-		
-		return entrada;
-	}
 	
-	@RequestMapping(value="", method=RequestMethod.GET)  
+	@RequestMapping(value="", method=RequestMethod.GET) 
 	@ResponseBody
-	public ResponseEntity<List<Carro>> buscarTudo() {
-		List<Carro> listagem = dao.listagem();
-		return new ResponseEntity<List<Carro>>(listagem, HttpStatus.OK) ;
+	public List<Carro> listagem() {
+		List<Carro> carros = dao.listagem();
+		return carros ;
 	}
+
+//	@RequestMapping(value="", method=RequestMethod.POST)  
+//	@ResponseBody
+//	public Carro inserir(@RequestBody Carro entrada) {
+//		String fabricante = entrada.getFabricante();
+//		String modelo = entrada.getModelo();
+//		String ano = entrada.getAno();
+//		
+//		dao.inserir(fabricante, modelo, ano);
+//		
+//		return entrada;
+//	}
+	
+//	@RequestMapping(value="", method=RequestMethod.GET)  
+//	@ResponseBody
+//	public ResponseEntity<List<Carro>> buscarTudo() {
+//		List<Carro> listagem = dao.listagem();
+//		return new ResponseEntity<List<Carro>>(listagem, HttpStatus.OK) ;
+//	}
 	
 //	@RequestMapping(value="/{id}", method=RequestMethod.GET)  
 //	@ResponseBody

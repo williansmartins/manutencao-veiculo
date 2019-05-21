@@ -17,7 +17,7 @@ import com.williansmartins.manutencaoveiculo.model.Categoria;
 import com.williansmartins.manutencaoveiculo.model.Manutencao;
 
 @Controller
-@RequestMapping("/manutencao")
+@RequestMapping("/manutencao2")
 public class ManutencoesController {
 
 	@RequestMapping("/exemplo")
