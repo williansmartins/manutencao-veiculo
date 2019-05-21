@@ -1,4 +1,4 @@
-package com.williansmartins.manutencaoveiculo.dao;
+package com.williansmartins.manutencaoveiculo.model;
 public class Carro {
 	private int id;
 	private String fabricante;

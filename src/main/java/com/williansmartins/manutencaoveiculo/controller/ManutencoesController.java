@@ -13,13 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.williansmartins.manutencaoveiculo.dao.CarroDAO;
 import com.williansmartins.manutencaoveiculo.model.Categoria;
 import com.williansmartins.manutencaoveiculo.model.Manutencao;
 
 @Controller
 @RequestMapping("/manutencao")
-public class ManutencaoController {
+public class ManutencoesController {
 
 	@RequestMapping("/exemplo")
 	@ResponseBody

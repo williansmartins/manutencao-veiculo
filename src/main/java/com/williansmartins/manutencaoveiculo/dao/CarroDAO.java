@@ -9,7 +9,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DAO{
+import com.williansmartins.manutencaoveiculo.model.Carro;
+
+public class CarroDAO{
 
 	final static String driver          = "com.mysql.jdbc.Driver";
     final static String url             = "jdbc:mysql://localhost:3306/manutencao_veiculo";
@@ -20,7 +22,7 @@ public class DAO{
     public static Statement  statement;
     public static ResultSet  resultset;
 
-    public static void conecta() {
+    public void conecta() {
 
         try {
             Class.forName(driver);
@@ -36,7 +38,7 @@ public class DAO{
 
     }
 
-    public static void inserir(String fabricante, String modelo, String ano) {
+    public void inserir(String fabricante, String modelo, String ano) {
         try {
                 conecta( ) ;
 
@@ -52,11 +54,11 @@ public class DAO{
         }
     }
  
-    public static List<Carro> listagem() {
+    public List<Carro> listagem() {
         //Metodo para popular a tabela com os registros que estÃ£o no banco de dados
         try {
             conecta();
-            java.sql.PreparedStatement stmtQuery = DAO.con.prepareStatement("Select * from carros ");
+            java.sql.PreparedStatement stmtQuery = CarroDAO.con.prepareStatement("Select * from carros ");
             ResultSet resultSet = stmtQuery.executeQuery();
             resultSet.beforeFirst();       
             
@@ -80,11 +82,11 @@ public class DAO{
         }
     }
 	
-    public static void excluir(int id) {
+    public void excluir(int id) {
 	     try {
 	        conecta();
         	String sql = "Delete from carros where id=" + id + "";
-        	statement = (Statement) DAO.con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, resultset.CONCUR_READ_ONLY);
+        	statement = (Statement) CarroDAO.con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, resultset.CONCUR_READ_ONLY);
         	statement.executeUpdate(sql);
 	        
 	        con.commit();
@@ -95,11 +97,11 @@ public class DAO{
 	        }
 	}
     
-    public static void atualizar(Carro carro) {
+    public void atualizar(Carro carro) {
     	try {
     		conecta();
     		String sql = "UPDATE carros SET fabricante = '"+ carro.getFabricante() +"', modelo = '"+ carro.getModelo() +"', ano = '"+ carro.getAno() +"'   WHERE id=" + carro.getId() + "";
-    		statement = (Statement) DAO.con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, resultset.CONCUR_READ_ONLY);
+    		statement = (Statement) CarroDAO.con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, resultset.CONCUR_READ_ONLY);
     		statement.executeUpdate(sql);
     		
     		con.commit();
@@ -110,7 +112,7 @@ public class DAO{
     	}
     }
 
-	public static Carro prepararCarro (int id){
+	public Carro prepararCarro (int id){
 
 	    	try{
 	    		conecta();
