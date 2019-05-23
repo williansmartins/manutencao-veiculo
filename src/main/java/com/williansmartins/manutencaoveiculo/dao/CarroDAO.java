@@ -14,9 +14,9 @@ import com.williansmartins.manutencaoveiculo.model.Carro;
 public class CarroDAO{
 
 	final static String driver          = "com.mysql.jdbc.Driver";
-    final static String url             = "jdbc:mysql://localhost:3306/manutencao_veiculo";
+    final static String url             = "jdbc:mysql://localhost:8889/manutencao_veiculo";
     final static String user            = "root";
-    final static String pwd             = "";
+    final static String pwd             = "root";
 
     public static Connection con            = null;
     public static Statement  statement;

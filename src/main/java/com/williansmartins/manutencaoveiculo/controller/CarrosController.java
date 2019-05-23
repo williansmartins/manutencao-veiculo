@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,17 +28,17 @@ public class CarrosController {
 		return carros ;
 	}
 
-//	@RequestMapping(value="", method=RequestMethod.POST)  
-//	@ResponseBody
-//	public Carro inserir(@RequestBody Carro entrada) {
-//		String fabricante = entrada.getFabricante();
-//		String modelo = entrada.getModelo();
-//		String ano = entrada.getAno();
-//		
-//		dao.inserir(fabricante, modelo, ano);
-//		
-//		return entrada;
-//	}
+	@RequestMapping(value="", method=RequestMethod.POST)  
+	@ResponseBody
+	public Carro inserir(@RequestBody Carro entrada) {
+		String fabricante = entrada.getFabricante();
+		String modelo = entrada.getModelo();
+		String ano = entrada.getAno();
+		
+		dao.inserir(fabricante, modelo, ano);
+		
+		return entrada;
+	}
 	
 //	@RequestMapping(value="", method=RequestMethod.GET)  
 //	@ResponseBody
@@ -65,12 +66,13 @@ public class CarrosController {
 //		Carro.setObservacoes(Carro.getObservacoes() + " - nova");
 //		return new ResponseEntity<Carro>(Carro, HttpStatus.OK); 
 //	}
-//
-//	@ResponseBody
-//	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
-//	public ResponseEntity<Carro> deletar(@PathVariable String id) {
-//		System.out.println("Deletando o objeto com id:" + id);
-//		return new ResponseEntity<Carro>(new Carro(), HttpStatus.OK) ;
-//	}
+
+	@ResponseBody
+	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+	public ResponseEntity<Carro> deletar(@PathVariable String id) {
+		System.out.println("Deletando o objeto com id:" + id);
+		//dao???
+		return new ResponseEntity<Carro>(new Carro(), HttpStatus.OK) ;
+	}
 	
 }

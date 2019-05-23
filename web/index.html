@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+	<body>
+
+		<div ng-app="myApp" ng-controller="customersCtrl">
+			<table border="1">
+				<tr>
+					<th>Fabricante</th>
+					<th>Modelo</th>
+					<th>Ano</th>
+					<th>Ações</th>
+					<th><a href="#">Excluir selecionados</a> </th>
+				</tr>
+				<tr ng-repeat="x in carros">
+					<td>{{ x.fabricante }}</td>
+					<td>{{ x.modelo }}</td>
+					<td>{{ x.ano }}</td>
+					<td>
+						<a href="#" ng-click="excluir()">Excluir</a>
+						<input type="checkbox" name="" />
+					</td>
+					<td>
+						<a href="#" ng-click="excluir()">Alterar</a>
+					</td>
+				</tr>
+			</table>
+			<br />
+			<form name="formulario">
+				<input type="text" ng-model="fabricante" placeholder="fabricante" />
+				<input type="text" ng-model="modelo" placeholder="modelo" />
+				<input type="number" ng-model="ano" placeholder="ano" />
+				<input type="button" value="salvar" ng-click="salvar()" 
+					ng-disabled="fabricante=='' || modelo=='' || ano==''"/>
+			</form>
+		</div>
+		<script>
+			var app = angular.module('myApp', []);
+			app.controller('customersCtrl', function($scope, $http) {
+				
+				$scope.excluir = function(){
+					$http.delete("http://localhost:8080/sistema/api/v1/carros/123")
+						.then(function (response) {
+							alert("sucesso!");
+							$scope.buscarTodos();
+						}
+					);
+				}
+
+				$scope.buscarTodos = function(){
+					$http.get("http://localhost:8080/sistema/api/v1/carros")
+						.then(function (response) {
+							$scope.carros = response.data;
+						}
+					);
+				}
+
+				$scope.limparCampos = function(){
+  					$scope.fabricante = "";
+  					$scope.modelo = "";
+  					$scope.ano = "";
+				}
+
+				$scope.salvar = function(){
+					$http({
+		                method : "POST",
+		                url : "http://localhost:8080/sistema/api/v1/carros",
+		                data: {
+							"fabricante": $scope.fabricante,
+							"modelo": $scope.modelo,
+							"ano": $scope.ano
+						}
+		            }).then(function successCallback(response) {
+					    // this callback will be called asynchronously
+					    // when the response is available
+					    $scope.buscarTodos();
+					    $scope.limparCampos();
+					  }, function errorCallback(response) {
+					    // called asynchronously if an error occurs
+					    // or server returns response with an error status.
+					    alert("ERRO!!!!!");
+					  });
+				}	
+
+				$scope.buscarTodos();
+				$scope.limparCampos();
+			});
+		</script>
+
+	</body>
+</html>
