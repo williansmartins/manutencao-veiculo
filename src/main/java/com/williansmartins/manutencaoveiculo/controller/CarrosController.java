@@ -30,14 +30,14 @@ public class CarrosController {
 
 	@RequestMapping(value="", method=RequestMethod.POST)  
 	@ResponseBody
-	public Carro inserir(@RequestBody Carro entrada) {
+	public int inserir(@RequestBody Carro entrada) {
 		String fabricante = entrada.getFabricante();
 		String modelo = entrada.getModelo();
-		String ano = entrada.getAno();
+		String ano = "";
 		
-		dao.inserir(fabricante, modelo, ano);
+		return dao.inserir(fabricante, modelo, ano);
 		
-		return entrada;
+		
 	}
 	
 //	@RequestMapping(value="", method=RequestMethod.GET)  
@@ -47,25 +47,19 @@ public class CarrosController {
 //		return new ResponseEntity<List<Carro>>(listagem, HttpStatus.OK) ;
 //	}
 	
-//	@RequestMapping(value="/{id}", method=RequestMethod.GET)  
-//	@ResponseBody
-//	public Carro buscar() {
-//		Carro objeto = new Carro();
-//		objeto.setCategoria(Categoria.COMBUSTIVEL);
-//		objeto.setData(new Date());
-//		objeto.setId(1);
-//		objeto.setId_usuario(2);
-//		objeto.setId_veiculo(3);
-//		objeto.setKilometragem(12345);
-//		return objeto;
-//	}
-//
-//	@ResponseBody
-//	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
-//	public ResponseEntity<Carro> atualizar(@RequestBody Carro Carro, @PathVariable String id) {
-//		Carro.setObservacoes(Carro.getObservacoes() + " - nova");
-//		return new ResponseEntity<Carro>(Carro, HttpStatus.OK); 
-//	}
+	@RequestMapping(value="/{id}", method=RequestMethod.GET)  
+	@ResponseBody
+	public Carro buscarPorId(@PathVariable int id) {
+		Carro carro = dao.buscarPorId(id);
+		return carro;
+	}
+
+	@ResponseBody
+	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
+	public ResponseEntity<Carro> atualizar(@RequestBody Carro Carro, @PathVariable String id) {
+		Carro.setObservacoes(Carro.getObservacoes() + " - nova");
+		return new ResponseEntity<Carro>(Carro, HttpStatus.OK); 
+	}
 
 	@ResponseBody
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)

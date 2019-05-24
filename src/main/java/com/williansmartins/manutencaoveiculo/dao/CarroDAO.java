@@ -14,9 +14,9 @@ import com.williansmartins.manutencaoveiculo.model.Carro;
 public class CarroDAO{
 
 	final static String driver          = "com.mysql.jdbc.Driver";
-    final static String url             = "jdbc:mysql://localhost:8889/manutencao_veiculo";
+    final static String url             = "jdbc:mysql://localhost:3306/manutencao_veiculo";
     final static String user            = "root";
-    final static String pwd             = "root";
+    final static String pwd             = "";
 
     public static Connection con            = null;
     public static Statement  statement;
@@ -38,19 +38,21 @@ public class CarroDAO{
 
     }
 
-    public void inserir(String fabricante, String modelo, String ano) {
+    public int inserir(String fabricante, String modelo, String ano) {
         try {
                 conecta( ) ;
 
                 String sql = "INSERT INTO carros (fabricante, modelo, ano) VALUES ( '" + fabricante + "','" + modelo + "','" + ano + "' )";
                 Statement st = con.createStatement();
-                st.executeUpdate(sql);
+                int id = st.executeUpdate(sql);
                 con.commit();
                 con.close();
                 System.out.println("Inserido com sucesso");
+                return id;
 
         } catch (SQLException ex) {
             System.out.print("Erro ao inserir: " + ex.getMessage());
+            return 0;
         }
     }
  
@@ -112,7 +114,7 @@ public class CarroDAO{
     	}
     }
 
-	public Carro prepararCarro (int id){
+	public Carro buscarPorId(int id){
 
 	    	try{
 	    		conecta();
