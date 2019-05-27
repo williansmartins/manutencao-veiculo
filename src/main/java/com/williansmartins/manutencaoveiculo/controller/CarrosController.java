@@ -56,9 +56,10 @@ public class CarrosController {
 
 	@ResponseBody
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
-	public ResponseEntity<Carro> atualizar(@RequestBody Carro Carro, @PathVariable String id) {
-		Carro.setObservacoes(Carro.getObservacoes() + " - nova");
-		return new ResponseEntity<Carro>(Carro, HttpStatus.OK); 
+	public int atualizar(@RequestBody Carro carro, @PathVariable String id) {
+		carro.setId(Integer.parseInt(id));
+		int resultado = dao.atualizar(carro);
+		return resultado; 
 	}
 
 	@ResponseBody

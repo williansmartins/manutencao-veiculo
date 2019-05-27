@@ -14,9 +14,9 @@ import com.williansmartins.manutencaoveiculo.model.Carro;
 public class CarroDAO{
 
 	final static String driver          = "com.mysql.jdbc.Driver";
-    final static String url             = "jdbc:mysql://localhost:3306/manutencao_veiculo";
+    final static String url             = "jdbc:mysql://localhost:8889/manutencao_veiculo";
     final static String user            = "root";
-    final static String pwd             = "";
+    final static String pwd             = "root";
 
     public static Connection con            = null;
     public static Statement  statement;
@@ -99,18 +99,38 @@ public class CarroDAO{
 	        }
 	}
     
-    public void atualizar(Carro carro) {
+    public int atualizar(Carro carro) {
     	try {
     		conecta();
-    		String sql = "UPDATE carros SET fabricante = '"+ carro.getFabricante() +"', modelo = '"+ carro.getModelo() +"', ano = '"+ carro.getAno() +"'   WHERE id=" + carro.getId() + "";
+    		
+    		String fabricanteSQL = "";
+    		String modeloSQL = "";
+    		String anoSQL = "";
+    		
+    		if(carro.getFabricante() != null) {
+    			fabricanteSQL = "fabricante = '"+ carro.getFabricante() +"',";
+    		}
+    		
+    		if(carro.getModelo() != null) {
+    			modeloSQL = "modelo = '"+ carro.getModelo() +"',";
+    		}
+    		
+    		if(carro.getAno() != null) {
+    			anoSQL = "ano = '"+ carro.getAno() +"',";
+    		}
+    		
+    		String sql = "UPDATE carros SET " + fabricanteSQL + " " + modeloSQL + " " + anoSQL + " WHERE id=" + carro.getId() + "";
     		statement = (Statement) CarroDAO.con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, resultset.CONCUR_READ_ONLY);
-    		statement.executeUpdate(sql);
+    		int resultado = statement.executeUpdate(sql);
     		
     		con.commit();
     		System.out.print("Item atualizado com sucesso!");
     		statement.close();
+    		
+    		return resultado;
     	} catch (SQLException ex) {
-    		System.out.println("Erro ao excluir: " + ex.getMessage());
+    		System.out.println("Erro ao atualizar: " + ex.getMessage());
+    		return 0;
     	}
     }
 
