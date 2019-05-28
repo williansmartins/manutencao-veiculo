@@ -106,6 +106,7 @@ public class CarroDAO{
     		String fabricanteSQL = "";
     		String modeloSQL = "";
     		String anoSQL = "";
+    		String clausulas = "";
     		
     		if(carro.getFabricante() != null) {
     			fabricanteSQL = "fabricante = '"+ carro.getFabricante() +"',";
@@ -116,10 +117,13 @@ public class CarroDAO{
     		}
     		
     		if(carro.getAno() != null) {
-    			anoSQL = "ano = '"+ carro.getAno() +"',";
+    			anoSQL = "ano = '"+ carro.getAno() +"'";
     		}
     		
     		String sql = "UPDATE carros SET " + fabricanteSQL + " " + modeloSQL + " " + anoSQL + " WHERE id=" + carro.getId() + "";
+    		
+    		sql = removerVirgula(sql);
+    		
     		statement = (Statement) CarroDAO.con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, resultset.CONCUR_READ_ONLY);
     		int resultado = statement.executeUpdate(sql);
     		
@@ -133,6 +137,21 @@ public class CarroDAO{
     		return 0;
     	}
     }
+
+	private String removerVirgula(String sql) {
+		//sql = "UPDATE carros SET fabricante = 'Honda',  WHERE id=25";
+		int posicaoWhere = sql.lastIndexOf("WHERE");
+		System.out.println("posicaoWhere: " + posicaoWhere);
+		int posicaoDaVirgula = sql.lastIndexOf(",", posicaoWhere);
+		int diferenca = posicaoWhere - posicaoDaVirgula;
+
+		if(diferenca <= 4) {
+			String result = sql.substring(0, posicaoWhere-diferenca) + sql.substring(posicaoWhere-diferenca+1);
+			return result;
+		}else {
+			return sql;
+		}
+	}
 
 	public Carro buscarPorId(int id){
 
