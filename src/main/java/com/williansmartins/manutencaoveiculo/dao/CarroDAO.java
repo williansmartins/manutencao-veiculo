@@ -3,9 +3,9 @@ package com.williansmartins.manutencaoveiculo.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,21 +13,21 @@ import com.williansmartins.manutencaoveiculo.model.Carro;
 
 public class CarroDAO{
 
-	final static String driver          = "com.mysql.jdbc.Driver";
-    final static String url             = "jdbc:mysql://pwms.com.br:3306/waisoc_manutencao";
-    final static String user            = "waisoc_manutenca";
-    final static String pwd             = "manutencao123";
+	private final String driver          = "com.mysql.jdbc.Driver";
+	private final String url             = "jdbc:mysql://pwms.com.br:3306/waisoc_manutencao";
+	private final String user            = "waisoc_manutenca";
+	private final String pwd             = "manutencao123";
 
-    public static Connection con            = null;
-    public static Statement  statement;
-    public static ResultSet  resultset;
+    public static Connection connection;
+    public PreparedStatement prepStatement;
+    public static ResultSet  resultSet;
 
     public void conecta() {
 
         try {
             Class.forName(driver);
-            con = DriverManager.getConnection(url, user, pwd);
-            con.setAutoCommit(false);
+            connection = DriverManager.getConnection(url, user, pwd);
+            connection.setAutoCommit(false);
             System.out.println("Conectado");
         } catch (ClassNotFoundException e) {
             System.out.print("Driver não encontrado!\n" + e.getMessage());
@@ -35,33 +35,44 @@ public class CarroDAO{
             System.out.print("Erro na Conexao com Banco\n" + e.getMessage());
         }
 
-
     }
 
     public int inserir(String fabricante, String modelo, String ano) {
         try {
-                conecta( ) ;
+            conecta( ) ;
 
-                String sql = "INSERT INTO carros (fabricante, modelo, ano) VALUES ( '" + fabricante + "','" + modelo + "','" + ano + "' )";
-                Statement st = con.createStatement();
-                int id = st.executeUpdate(sql);
-                con.commit();
-                con.close();
-                System.out.println("Inserido com sucesso");
-                return id;
+            String sql = "INSERT INTO carros (fabricante, modelo, ano) VALUES ( '" + fabricante + "','" + modelo + "','" + ano + "' )";
+            prepStatement = connection.prepareStatement(sql);
+            prepStatement.executeUpdate();
+    		int id = 0;
+            
+            try (ResultSet generatedKeys = prepStatement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    id = generatedKeys.getInt(1);
+                }
+                else {
+                    throw new SQLException("Erro ao obter o id.");
+                }
+            }
+            
+            connection.commit();
+            System.out.println("Inserido com sucesso");
+            return id;
 
         } catch (SQLException ex) {
             System.out.print("Erro ao inserir: " + ex.getMessage());
             return 0;
+        }finally {
+            try { if (prepStatement != null) prepStatement.close(); } catch (Exception e) {};
+            try { if (connection != null) connection.close(); } catch (Exception e) {};
         }
     }
  
-    public List<Carro> listagem() {
-        //Metodo para popular a tabela com os registros que estÃ£o no banco de dados
+    public List<Carro> buscarTudo() {
         try {
             conecta();
-            java.sql.PreparedStatement stmtQuery = CarroDAO.con.prepareStatement("Select * from carros ");
-            ResultSet resultSet = stmtQuery.executeQuery();
+            prepStatement = CarroDAO.connection.prepareStatement("Select * from carros ");
+            resultSet = prepStatement.executeQuery();
             resultSet.beforeFirst();       
             
             List<Carro> carros = new ArrayList<Carro>();
@@ -75,28 +86,37 @@ public class CarroDAO{
             	
             	carros.add(c);
             }
-            con.close();
+            connection.close();
             return carros;
             
         } catch (SQLException ex) {
             System.out.print("Erro na listagem: " + ex.getMessage());
-            return null;
+            return new ArrayList<Carro>();
+        }finally {
+            try { if (prepStatement != null) prepStatement.close(); } catch (Exception e) {};
+            try { if (connection != null) connection.close(); } catch (Exception e) {};
+            try { if (resultSet != null) resultSet.close(); } catch (Exception e) {};
         }
     }
 	
-    public void excluir(int id) {
+    public int excluir(int id) {
 	     try {
 	        conecta();
         	String sql = "Delete from carros where id=" + id + "";
-        	statement = (Statement) CarroDAO.con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, resultset.CONCUR_READ_ONLY);
-        	statement.executeUpdate(sql);
+        	prepStatement = CarroDAO.connection.prepareStatement(sql);
+        	int deuCerto = prepStatement.executeUpdate(sql);
 	        
-	        con.commit();
+	        connection.commit();
 	        System.out.print("Item excluido com sucesso!");
-	        statement.close();
-	        }catch (SQLException ex) {
-	             System.out.println("Erro ao excluir: "+ex.getMessage());
-	        }
+	        return deuCerto;
+        }catch (SQLException ex) {
+             System.out.println("Erro ao excluir: "+ex.getMessage());
+             return 0;
+        }finally {
+            try { if (prepStatement != null) prepStatement.close(); } catch (Exception e) {};
+            try { if (connection != null) connection.close(); } catch (Exception e) {};
+            try { if (resultSet != null) resultSet.close(); } catch (Exception e) {};
+        }
 	}
     
     public int atualizar(Carro carro) {
@@ -106,78 +126,69 @@ public class CarroDAO{
     		String fabricanteSQL = "";
     		String modeloSQL = "";
     		String anoSQL = "";
-    		String clausulas = "";
+    		List<String> lista = new ArrayList<String>();
     		
     		if(carro.getFabricante() != null) {
-    			fabricanteSQL = "fabricante = '"+ carro.getFabricante() +"',";
+    			fabricanteSQL = "fabricante = '"+ carro.getFabricante() +"'";
+    			lista.add(fabricanteSQL);
     		}
     		
     		if(carro.getModelo() != null) {
-    			modeloSQL = "modelo = '"+ carro.getModelo() +"',";
+    			modeloSQL = "modelo = '"+ carro.getModelo() +"'";
+    			lista.add(modeloSQL);
     		}
     		
     		if(carro.getAno() != null) {
     			anoSQL = "ano = '"+ carro.getAno() +"'";
+    			lista.add(anoSQL);
     		}
     		
-    		String sql = "UPDATE carros SET " + fabricanteSQL + " " + modeloSQL + " " + anoSQL + " WHERE id=" + carro.getId() + "";
+    		String sql = "UPDATE carros SET " + String.join(", ", lista) + " WHERE id=" + carro.getId() + "";
+    		    		
+    		prepStatement = connection.prepareStatement(sql);
+    		int deuCerto = prepStatement.executeUpdate();
     		
-    		sql = removerVirgula(sql);
-    		
-    		statement = (Statement) CarroDAO.con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, resultset.CONCUR_READ_ONLY);
-    		int resultado = statement.executeUpdate(sql);
-    		
-    		con.commit();
+    		connection.commit();
     		System.out.print("Item atualizado com sucesso!");
-    		statement.close();
     		
-    		return resultado;
+    		return deuCerto;
     	} catch (SQLException ex) {
     		System.out.println("Erro ao atualizar: " + ex.getMessage());
     		return 0;
-    	}
+    	}finally {
+            try { if (prepStatement != null) prepStatement.close(); } catch (Exception e) {};
+            try { if (connection != null) connection.close(); } catch (Exception e) {};
+            try { if (resultSet != null) resultSet.close(); } catch (Exception e) {};
+        }
     }
-
-	private String removerVirgula(String sql) {
-		//sql = "UPDATE carros SET fabricante = 'Honda',  WHERE id=25";
-		int posicaoWhere = sql.lastIndexOf("WHERE");
-		System.out.println("posicaoWhere: " + posicaoWhere);
-		int posicaoDaVirgula = sql.lastIndexOf(",", posicaoWhere);
-		int diferenca = posicaoWhere - posicaoDaVirgula;
-
-		if(diferenca <= 4) {
-			String result = sql.substring(0, posicaoWhere-diferenca) + sql.substring(posicaoWhere-diferenca+1);
-			return result;
-		}else {
-			return sql;
-		}
-	}
 
 	public Carro buscarPorId(int id){
 
-	    	try{
-	    		conecta();
-	    		Statement st = con.createStatement();
-	    		String sql = "select * from carros where id = "+id+" ";
-	    		ResultSet rs = st.executeQuery(sql); 
+    	try{
+    		conecta();
+    		String sql = "select * from carros where id = "+id+" ";
+    		prepStatement = connection.prepareStatement(sql);
+    		resultSet = prepStatement.executeQuery(); 
 
-	    		rs.first();
+    		resultSet.first();
 
-	    		Carro carro = new Carro();
+    		Carro carro = new Carro();
 
-	    		carro.setId(rs.getInt("id"));
-	    		carro.setFabricante(rs.getString("fabricante"));
-	    		carro.setModelo(rs.getString("modelo"));
-	    		carro.setAno(rs.getString("ano"));
-	            
-	            return carro;
-	        }
-	        catch (SQLException ex) {
-	            System.out.print("Erro ao preparar: " + ex.getMessage());
-	            return null;
-	        }
+    		carro.setId(resultSet.getInt("id"));
+    		carro.setFabricante(resultSet.getString("fabricante"));
+    		carro.setModelo(resultSet.getString("modelo"));
+    		carro.setAno(resultSet.getString("ano"));
+            
+            return carro;
+        }
+        catch (SQLException ex) {
+            System.out.print("Erro ao preparar: " + ex.getMessage());
+            return new Carro();
+        }finally {
+            try { if (prepStatement != null) prepStatement.close(); } catch (Exception e) {};
+            try { if (connection != null) connection.close(); } catch (Exception e) {};
+            try { if (resultSet != null) resultSet.close(); } catch (Exception e) {};
+        }
 	        
-	        
-	        
-	   }
+   }
 }
