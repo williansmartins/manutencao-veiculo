@@ -165,6 +165,7 @@ public class CarroDAO{
 	        System.out.print("Item excluido com sucesso! ");  
 	        return deuCerto;
         }catch (SQLException ex) {
+        	
              System.out.println("Erro ao excluir: "+ex.getMessage());
              return 0;
         }finally {

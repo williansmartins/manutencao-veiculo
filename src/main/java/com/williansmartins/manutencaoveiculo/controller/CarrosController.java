@@ -2,6 +2,7 @@ package com.williansmartins.manutencaoveiculo.controller;
 
 import java.util.List;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,12 +18,6 @@ import com.williansmartins.manutencaoveiculo.model.Carro;
 public class CarrosController {
 	
 	CarroDAO dao = new CarroDAO();
-	
-	@RequestMapping(value="getNumberConnection", method=RequestMethod.GET) 
-	@ResponseBody
-	public void getNumberConnection() {
-		dao.getNumberConnection();
-	}
 	
 	@RequestMapping(value="", method=RequestMethod.GET) 
 	@ResponseBody
@@ -43,6 +38,7 @@ public class CarrosController {
 		return entrada;
 	}
 	
+	@Cacheable(value = { "addresses" })
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)  
 	@ResponseBody
 	public Carro buscarPorId(@PathVariable int id) {
