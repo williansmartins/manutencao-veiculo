@@ -18,6 +18,12 @@ public class CarrosController {
 	
 	CarroDAO dao = new CarroDAO();
 	
+	@RequestMapping(value="getNumberConnection", method=RequestMethod.GET) 
+	@ResponseBody
+	public void getNumberConnection() {
+		dao.getNumberConnection();
+	}
+	
 	@RequestMapping(value="", method=RequestMethod.GET) 
 	@ResponseBody
 	public List<Carro> listagem() {

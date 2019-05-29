@@ -1,7 +1,9 @@
 package com.williansmartins.manutencaoveiculo.dao;
 
 
+import java.beans.PropertyVetoException;
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mchange.v2.c3p0.ComboPooledDataSource;
 import com.williansmartins.manutencaoveiculo.model.Carro;
 
 public class CarroDAO{
@@ -18,28 +21,81 @@ public class CarroDAO{
 	private final String user            = "waisoc_manutenca";
 	private final String pwd             = "manutencao123";
 
-    public static Connection connection;
+//	final String driver          = "com.mysql.jdbc.Driver";
+//    final String url             = "jdbc:mysql://localhost:3306/manutencao_veiculo";
+//    final String user            = "root";
+//    final String pwd             = "";
+    
     public PreparedStatement prepStatement;
-    public static ResultSet  resultSet;
+    public ResultSet  resultSet;
+    private static ComboPooledDataSource cpds;
+    
+	public void getNumberConnection()  {
+	        
+	    	try (Connection connection =
+	                DriverManager.getConnection(url, user, pwd)) {
+	
+	           // Get database meta data.
+	           DatabaseMetaData metaData = connection.getMetaData();
+	
+	           // Retrieves the maximum number of concurrent
+	           // connections to this database that are possible.
+	           // A result of zero means that there is no limit or
+	           // the limit is not known.
+	           int max = metaData.getMaxConnections();
+	           System.out.println("Max concurrent connections: " + max);
+	       } catch (SQLException e) {
+	           e.printStackTrace();
+	       }
+	}
 
-    public void conecta() {
+    public Connection getConnection()  {
+        
+    	try {
+			if (cpds == null) {
+			    cpds = new ComboPooledDataSource();
+			    cpds.setDriverClass(driver);
+			    cpds.setJdbcUrl(url);
+			    cpds.setUser(user);
+			    cpds.setPassword(pwd);
+			    cpds.setMinPoolSize(1); 
+			    cpds.setAcquireIncrement(2); 
+			    cpds.setMaxPoolSize(6);
+			    cpds.setAcquireRetryAttempts(3);
+			    //cpds.setMaxIdleTime(60);
+			}
+			System.out.println("Pool forneceu conex„o.");
+			return cpds.getConnection();
+		} catch (Exception e) {
+			System.out.println("N„o forneceu conex„o.");
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+			return null;
+		}
+    }
+    
+    public Connection getConnection2() {
 
         try {
             Class.forName(driver);
-            connection = DriverManager.getConnection(url, user, pwd);
+            Connection connection = DriverManager.getConnection(url, user, pwd);
             connection.setAutoCommit(false);
             System.out.println("Conectado");
+            return connection;
         } catch (ClassNotFoundException e) {
-            System.out.print("Driver n√£o encontrado!\n" + e.getMessage());
+            System.out.print("Driver nao encontrado!\n" + e.getMessage());
         } catch (SQLException e) {
             System.out.print("Erro na Conexao com Banco\n" + e.getMessage());
         }
+        
+        return null;
 
     }
 
     public int inserir(String fabricante, String modelo, String ano) {
-        try {
-            conecta( ) ;
+    	Connection connection = getConnection();
+
+    	try {
 
             String sql = "INSERT INTO carros (fabricante, modelo, ano) VALUES ( '" + fabricante + "','" + modelo + "','" + ano + "' )";
             prepStatement = connection.prepareStatement(sql);
@@ -69,10 +125,17 @@ public class CarroDAO{
     }
  
     public List<Carro> buscarTudo() {
+    	Connection connection = null;
+		try {
+			connection = C3poDataSource.getConnection();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+    	
         try {
-            conecta();
-            prepStatement = CarroDAO.connection.prepareStatement("Select * from carros ");
-            resultSet = prepStatement.executeQuery();
+        	System.out.println(connection);
+            PreparedStatement prepStatement = connection.prepareStatement("Select * from carros ");
+            ResultSet resultSet = prepStatement.executeQuery();
             resultSet.beforeFirst();       
             
             List<Carro> carros = new ArrayList<Carro>();
@@ -86,24 +149,23 @@ public class CarroDAO{
             	
             	carros.add(c);
             }
-            connection.close();
+         
             return carros;
             
         } catch (SQLException ex) {
             System.out.print("Erro na listagem: " + ex.getMessage());
             return new ArrayList<Carro>();
         }finally {
-            try { if (prepStatement != null) prepStatement.close(); } catch (Exception e) {};
             try { if (connection != null) connection.close(); } catch (Exception e) {};
-            try { if (resultSet != null) resultSet.close(); } catch (Exception e) {};
         }
     }
 	
     public int excluir(int id) {
+    	Connection connection = getConnection();
+    	
 	     try {
-	        conecta();
         	String sql = "Delete from carros where id=" + id + "";
-        	prepStatement = CarroDAO.connection.prepareStatement(sql);
+        	prepStatement = connection.prepareStatement(sql);
         	int deuCerto = prepStatement.executeUpdate(sql);
 	        
 	        connection.commit();
@@ -120,8 +182,9 @@ public class CarroDAO{
 	}
     
     public int atualizar(Carro carro) {
+    	Connection connection = getConnection();
+    	
     	try {
-    		conecta();
     		
     		String fabricanteSQL = "";
     		String modeloSQL = "";
@@ -163,9 +226,9 @@ public class CarroDAO{
     }
 
 	public Carro buscarPorId(int id){
+		Connection connection = getConnection();
 
     	try{
-    		conecta();
     		String sql = "select * from carros where id = "+id+" ";
     		prepStatement = connection.prepareStatement(sql);
     		resultSet = prepStatement.executeQuery(); 
