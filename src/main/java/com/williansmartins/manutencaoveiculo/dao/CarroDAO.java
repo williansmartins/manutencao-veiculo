@@ -1,7 +1,6 @@
 package com.williansmartins.manutencaoveiculo.dao;
 
 
-import java.beans.PropertyVetoException;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
@@ -26,8 +25,6 @@ public class CarroDAO{
 //    final String user            = "root";
 //    final String pwd             = "";
     
-    public PreparedStatement prepStatement;
-    public ResultSet  resultSet;
     private static ComboPooledDataSource cpds;
     
 	public void getNumberConnection()  {
@@ -93,25 +90,25 @@ public class CarroDAO{
     }
 
     public int inserir(String fabricante, String modelo, String ano) {
-    	Connection connection = getConnection();
-
-    	try {
+    	Connection connection = null;
+    	PreparedStatement prepStatement = null;
+    	
+		try {
+			connection = C3poDataSource.getConnection();
 
             String sql = "INSERT INTO carros (fabricante, modelo, ano) VALUES ( '" + fabricante + "','" + modelo + "','" + ano + "' )";
             prepStatement = connection.prepareStatement(sql);
             prepStatement.executeUpdate();
     		int id = 0;
             
-            try (ResultSet generatedKeys = prepStatement.getGeneratedKeys()) {
-                if (generatedKeys.next()) {
-                    id = generatedKeys.getInt(1);
-                }
-                else {
-                    throw new SQLException("Erro ao obter o id.");
-                }
+            ResultSet generatedKeys = prepStatement.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                id = generatedKeys.getInt(1);
+            }
+            else {
+                throw new SQLException("Erro ao obter o id.");
             }
             
-            connection.commit();
             System.out.println("Inserido com sucesso");
             return id;
 
@@ -128,12 +125,6 @@ public class CarroDAO{
     	Connection connection = null;
 		try {
 			connection = C3poDataSource.getConnection();
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-		}
-    	
-        try {
-        	System.out.println(connection);
             PreparedStatement prepStatement = connection.prepareStatement("Select * from carros ");
             ResultSet resultSet = prepStatement.executeQuery();
             resultSet.beforeFirst();       
@@ -150,6 +141,8 @@ public class CarroDAO{
             	carros.add(c);
             }
          
+            System.out.println("Sucesso ao buscar carros.");
+            System.out.println(carros);
             return carros;
             
         } catch (SQLException ex) {
@@ -161,15 +154,15 @@ public class CarroDAO{
     }
 	
     public int excluir(int id) {
-    	Connection connection = getConnection();
-    	
-	     try {
+    	Connection connection = null;
+    	PreparedStatement prepStatement = null;
+		try {
+			connection = C3poDataSource.getConnection();
         	String sql = "Delete from carros where id=" + id + "";
         	prepStatement = connection.prepareStatement(sql);
         	int deuCerto = prepStatement.executeUpdate(sql);
 	        
-	        connection.commit();
-	        System.out.print("Item excluido com sucesso!");
+	        System.out.print("Item excluido com sucesso! ");  
 	        return deuCerto;
         }catch (SQLException ex) {
              System.out.println("Erro ao excluir: "+ex.getMessage());
@@ -177,14 +170,15 @@ public class CarroDAO{
         }finally {
             try { if (prepStatement != null) prepStatement.close(); } catch (Exception e) {};
             try { if (connection != null) connection.close(); } catch (Exception e) {};
-            try { if (resultSet != null) resultSet.close(); } catch (Exception e) {};
         }
 	}
     
     public int atualizar(Carro carro) {
-    	Connection connection = getConnection();
+    	Connection connection = null;
+    	PreparedStatement prepStatement = null;
     	
-    	try {
+		try {
+			connection = C3poDataSource.getConnection();
     		
     		String fabricanteSQL = "";
     		String modeloSQL = "";
@@ -211,8 +205,7 @@ public class CarroDAO{
     		prepStatement = connection.prepareStatement(sql);
     		int deuCerto = prepStatement.executeUpdate();
     		
-    		connection.commit();
-    		System.out.print("Item atualizado com sucesso!");
+    		System.out.println("Item atualizado com sucesso!");
     		
     		return deuCerto;
     	} catch (SQLException ex) {
@@ -221,14 +214,17 @@ public class CarroDAO{
     	}finally {
             try { if (prepStatement != null) prepStatement.close(); } catch (Exception e) {};
             try { if (connection != null) connection.close(); } catch (Exception e) {};
-            try { if (resultSet != null) resultSet.close(); } catch (Exception e) {};
         }
     }
 
 	public Carro buscarPorId(int id){
-		Connection connection = getConnection();
-
-    	try{
+		Connection connection = null;
+    	PreparedStatement prepStatement = null;
+    	ResultSet resultSet = null;
+    	
+		try {
+			connection = C3poDataSource.getConnection();
+			
     		String sql = "select * from carros where id = "+id+" ";
     		prepStatement = connection.prepareStatement(sql);
     		resultSet = prepStatement.executeQuery(); 
