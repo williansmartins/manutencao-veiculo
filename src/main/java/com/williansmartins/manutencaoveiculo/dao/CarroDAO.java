@@ -26,68 +26,6 @@ public class CarroDAO{
 //    final String pwd             = "";
     
     private static ComboPooledDataSource cpds;
-    
-	public void getNumberConnection()  {
-	        
-	    	try (Connection connection =
-	                DriverManager.getConnection(url, user, pwd)) {
-	
-	           // Get database meta data.
-	           DatabaseMetaData metaData = connection.getMetaData();
-	
-	           // Retrieves the maximum number of concurrent
-	           // connections to this database that are possible.
-	           // A result of zero means that there is no limit or
-	           // the limit is not known.
-	           int max = metaData.getMaxConnections();
-	           System.out.println("Max concurrent connections: " + max);
-	       } catch (SQLException e) {
-	           e.printStackTrace();
-	       }
-	}
-
-    public Connection getConnection()  {
-        
-    	try {
-			if (cpds == null) {
-			    cpds = new ComboPooledDataSource();
-			    cpds.setDriverClass(driver);
-			    cpds.setJdbcUrl(url);
-			    cpds.setUser(user);
-			    cpds.setPassword(pwd);
-			    cpds.setMinPoolSize(1); 
-			    cpds.setAcquireIncrement(2); 
-			    cpds.setMaxPoolSize(6);
-			    cpds.setAcquireRetryAttempts(3);
-			    //cpds.setMaxIdleTime(60);
-			}
-			System.out.println("Pool forneceu conexão.");
-			return cpds.getConnection();
-		} catch (Exception e) {
-			System.out.println("Não forneceu conexão.");
-			System.out.println(e.getMessage());
-			e.printStackTrace();
-			return null;
-		}
-    }
-    
-    public Connection getConnection2() {
-
-        try {
-            Class.forName(driver);
-            Connection connection = DriverManager.getConnection(url, user, pwd);
-            connection.setAutoCommit(false);
-            System.out.println("Conectado");
-            return connection;
-        } catch (ClassNotFoundException e) {
-            System.out.print("Driver nao encontrado!\n" + e.getMessage());
-        } catch (SQLException e) {
-            System.out.print("Erro na Conexao com Banco\n" + e.getMessage());
-        }
-        
-        return null;
-
-    }
 
     public int inserir(String fabricante, String modelo, String ano) {
     	Connection connection = null;
