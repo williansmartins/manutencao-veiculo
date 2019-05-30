@@ -2,30 +2,15 @@ package com.williansmartins.manutencaoveiculo.dao;
 
 
 import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mchange.v2.c3p0.ComboPooledDataSource;
 import com.williansmartins.manutencaoveiculo.model.Carro;
 
 public class CarroDAO{
-
-	private final String driver          = "com.mysql.jdbc.Driver";
-	private final String url             = "jdbc:mysql://pwms.com.br:3306/waisoc_manutencao";
-	private final String user            = "waisoc_manutenca";
-	private final String pwd             = "manutencao123";
-
-//	final String driver          = "com.mysql.jdbc.Driver";
-//    final String url             = "jdbc:mysql://localhost:3306/manutencao_veiculo";
-//    final String user            = "root";
-//    final String pwd             = "";
-    
-    private static ComboPooledDataSource cpds;
 
     public int inserir(String fabricante, String modelo, String ano) {
     	Connection connection = null;
