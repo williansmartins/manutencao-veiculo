@@ -18,7 +18,6 @@ angular.module('principal')
     $scope.entidadeSelecionada = null;
     $scope.apontamentosOrganizados = null;
     $scope.titulo = "Manutenção de Veículos";
-    $scope.titulo = "---";
 
     $scope.mudarTela = function(tela){
     	$scope.tela = tela;
