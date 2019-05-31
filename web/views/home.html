@@ -1,0 +1,90 @@
+ <div id="home" ng-cloak>
+    <div class="wrapper">
+        <header>
+            <h2>{{titulo}} 
+                <a href="javascript:void(0)">
+                    <i class="fas fa-sort" 
+                        ng-if="(tela==3) || (tela==6)"
+                        ng-click="reordenar()"></i>
+                </a>
+            </h2>
+            <pre class="hide">{{sucesso}}</pre>
+            <pre class="hide">{{}}</pre>
+        </header>
+        <section ng-if="tela==1" class="ponto" >
+            <img ng-show="!sucesso" src="imagens/fingerprint2.jpg" width="100px" ng-click="verificarDescricao()"/>
+            <img ng-show="sucesso" src="imagens/success.png" width="100px" />
+        </section>
+        <section ng-if="tela==2" class="dia">
+            <button type="button" class="btn btn-primary btn-sm hora" ng-if="apontamentosDoDia">
+              Total <span class="badge badge-pill badge-light ng-binding">{{apontamentosDoDia.total}} h</span>
+            </button>
+            <ul>
+                <li ng-repeat="(key, value) in apontamentosDoDia">
+                    <a href="javascript:void(0)">
+                        <i class="fas fa-pencil-alt" ng-click="editar(value)"></i>
+                        <span ng-click="editar(value)">{{value.ponto | date:'HH:mm'}}</span>
+                        <i class="fas fa-times" ng-click="deletar(value.id)"></i>
+                    </a>
+                </li>
+            </ul>
+
+
+            <span class="hora hide" ng-if="apontamentosDoDia">
+                {{apontamentosDoDia.total}} h
+            </span>
+        </section>
+        <section ng-if="(tela==3) || (tela==6)" class="mes">
+            <ul class="itens">
+                <li class="item" ng-repeat="(key, value)  in todosApontamentos | toArray | orderBy:value[0]">
+                    <a href="javascript:void(0)">
+                        <span class="data hide" ng-click="editar(value)">key: {{key}}</span>
+                        <span class="data hide" ng-click="editar(value)">value: {{value}}+</span>												
+                        <span class="data">{{value[0] | date:'dd/MM/yyyy'}}</span>
+						<span class="data hide">{{value[0]}}</span>
+						<span class="horas">
+                            <span class="hora " ng-click="editar(h)" ng-repeat="h in value[1]">
+                                {{h.valor | date:'HH:mm'}}
+                            </span>
+                        </span>
+                        <br>
+                        
+                        <button type="button" class="btn btn-primary btn-sm">
+                          Total <span class="badge badge-pill badge-light">{{value.total}}h</span>
+                        </button>
+						<span class="total" ng-click="editarDescricao(value.descricao)">:: {{value.descricao.descricao}} </span>
+                        <button type="button" class="btn btn-success btn-sm previsao hide" disabled>
+                          Previsão: <span class="badge badge-pill badge-light">até as 19:30</span>
+                        </button>
+                        <button type="button" class="btn btn-danger btn-sm hide" disabled>
+                          R$: <span class="badge badge-pill badge-light">450</span>
+                        </button>
+                    </a>
+                </li>
+            </ul>
+        </section>
+        <section ng-if="tela==4" class="edicao">
+            <!-- <div uib-timepicker ng-model="mytime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></div> -->
+            <input class="ponto" ng-model="entidadeSelecionada.ponto"></input>   
+            <br />
+            <br />
+            <a class="btn btn-success" ng-click="salvar()">Salvar</a>         
+            <a class="btn btn-warning" ng-click="voltar()">Voltar</a>         
+            <a class="btn btn-danger" ng-click="deletar(entidadeSelecionada.id)">Excluir</a>         
+        </section>
+        <section ng-if="tela==5" class="edicaoDescricao">
+            <input class="ponto" ng-model="descricaoSelecionada.descricao"></input>   
+            <a class="btn btn-success" ng-click="salvarDescricao()">Salvar</a>         
+            <a class="btn btn-warning" ng-click="voltar()">Voltar</a>         
+        </section>
+        <nav>
+            <ul>
+                <li ng-click="mudarTela(1)" ng-class="{'ativado' : tela==1}" class="ponto"><a href="javascript:void(0)"><i class="fas fa-fingerprint"></i></a></li>
+                <li ng-click="mudarTela(2)" ng-class="{'ativado' : tela==2}" class="hoje"><a href="javascript:void(0)"><i class="fas fa-clock"></i></a></li>
+                <li ng-click="mudarTela(3)" ng-class="{'ativado' : tela==3}" class="mes"><a href="javascript:void(0)"><i class="fas fa-align-justify"></i></a></li>
+                <li ng-click="mudarTela(6)" ng-class="{'ativado' : tela==6}" class="mes"><a href="javascript:void(0)"><i class="fas fa-calendar-alt"></i></a></li>
+                <li ng-click="sair()" class="sair"><a href="javascript:void(0)"><i class="fas fa-sign-out-alt"></i></a></li>
+            </ul>
+        </nav>
+    </div>
+ </div> 
