@@ -17,7 +17,7 @@ public class CarroDAO{
     	PreparedStatement prepStatement = null;
     	
 		try {
-			connection = C3poDataSource.getConnection();
+			connection = DataSource.getConnection();
 
             String sql = "INSERT INTO carros (fabricante, modelo, ano) VALUES ( '" + fabricante + "','" + modelo + "','" + ano + "' )";
             prepStatement = connection.prepareStatement(sql);
@@ -47,7 +47,7 @@ public class CarroDAO{
     public List<Carro> buscarTudo() {
     	Connection connection = null;
 		try {
-			connection = C3poDataSource.getConnection();
+			connection = DataSource.getConnection();
             PreparedStatement prepStatement = connection.prepareStatement("Select * from carros ");
             ResultSet resultSet = prepStatement.executeQuery();
             resultSet.beforeFirst();       
@@ -80,7 +80,7 @@ public class CarroDAO{
     	Connection connection = null;
     	PreparedStatement prepStatement = null;
 		try {
-			connection = C3poDataSource.getConnection();
+			connection = DataSource.getConnection();
         	String sql = "Delete from carros where id=" + id + "";
         	prepStatement = connection.prepareStatement(sql);
         	int deuCerto = prepStatement.executeUpdate(sql);
@@ -102,7 +102,7 @@ public class CarroDAO{
     	PreparedStatement prepStatement = null;
     	
 		try {
-			connection = C3poDataSource.getConnection();
+			connection = DataSource.getConnection();
     		
     		String fabricanteSQL = "";
     		String modeloSQL = "";
@@ -147,7 +147,7 @@ public class CarroDAO{
     	ResultSet resultSet = null;
     	
 		try {
-			connection = C3poDataSource.getConnection();
+			connection = DataSource.getConnection();
 			
     		String sql = "select * from carros where id = "+id+" ";
     		prepStatement = connection.prepareStatement(sql);

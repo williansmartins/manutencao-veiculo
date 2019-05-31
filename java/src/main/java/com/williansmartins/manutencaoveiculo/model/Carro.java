@@ -1,6 +1,13 @@
 package com.williansmartins.manutencaoveiculo.model;
 
-public class Carro {
+import java.io.Serializable;
+
+public class Carro implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private int id;
 	private String fabricante;
 	private String modelo;

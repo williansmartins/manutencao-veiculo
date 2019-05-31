@@ -22,7 +22,8 @@
 hs_err_pid*
 
 HELP.md
-/target/
+target/
+bin/
 !.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###
@@ -53,3 +54,6 @@ HELP.md
 
 
 .DS_Store
+
+### WEB ###
+node_modules

@@ -17,7 +17,7 @@ public class WebConfig extends  WebMvcConfigurerAdapter {
 
 	@Bean
     public CacheManager cacheManager() {
-        return new ConcurrentMapCacheManager("addresses");
+        return new ConcurrentMapCacheManager("cache");
     }
 }
 

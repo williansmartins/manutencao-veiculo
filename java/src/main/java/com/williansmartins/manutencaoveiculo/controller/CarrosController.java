@@ -1,5 +1,6 @@
 package com.williansmartins.manutencaoveiculo.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.cache.annotation.Cacheable;
@@ -38,7 +39,7 @@ public class CarrosController {
 		return entrada;
 	}
 	
-	@Cacheable(value = { "addresses" })
+	@Cacheable(value = { "cache" })
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)  
 	@ResponseBody
 	public Carro buscarPorId(@PathVariable int id) {
