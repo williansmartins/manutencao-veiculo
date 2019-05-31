@@ -159,9 +159,9 @@ angular.module('principal')
     init = function() {
         limparDadosDeLogin();
         // buscarTudo();
-        buscarPorID();
+        // buscarPorID();
         // excluir();
-        //atualizar();
+        // atualizar();
     };
 
 	init();

@@ -18,21 +18,24 @@
   text-align: center;
   padding: 60px 0px;
 }
-#home section.mes li {
+#home section#tela1 ul li {
+  outline: solid 1px gray;
+}
+#home section#tela3 li {
   border-bottom: solid 1px #19152d;
   text-align: left;
 }
-#home section.mes a {
+#home section#tela3 a {
   font-size: 20px;
   margin: 11px auto;
   display: block;
   width: 304px;
   position: relative;
 }
-#home section.mes a .total {
+#home section#tela3 a .total {
   font-size: 15px;
 }
-#home section.mes a .data {
+#home section#tela3 a .data {
   color: gray;
   font-size: 20px;
   line-height: 14px;
@@ -41,11 +44,11 @@
   border-left: solid 5px;
   padding-left: 4px;
 }
-#home section.mes a .horas {
+#home section#tela3 a .horas {
   margin-left: 120px;
   position: absolute;
 }
-#home section.mes a .horas .hora {
+#home section#tela3 a .horas .hora {
   color: #ffffff;
   margin: 0px 3px;
   font-size: 11px;
@@ -55,10 +58,10 @@
   line-height: 8px;
   float: right;
 }
-#home section.mes a .previsao {
+#home section#tela3 a .previsao {
   width: 216px;
 }
-#home section.dia .hora {
+#home section#tela2 .hora {
   color: #ffffff;
   font-size: 18px;
   background-color: #337ab7;
@@ -109,6 +112,7 @@
 #home nav ul li a {
   margin: 0px;
   padding: 0px;
+  font-size: 0px;
 }
 #home nav ul li a i {
   color: gray;

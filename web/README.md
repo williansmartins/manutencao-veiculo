@@ -1,5 +1,12 @@
-Versões: 
+Ações: 
 
-#1: gerenciar descricao, remocao do email e senha, reordenar
-#2: visualizacao dos apontamentos do mês e botao ordenacao
-#3: soma das horas do dia
+# baixar fonte awesome
+# ok - remover lodash
+# ok - remover momentJS
+# ok - remover code prettify
+
+
+Botões:
+# incluir manutenção
+# buscar manutenções
+# sair
