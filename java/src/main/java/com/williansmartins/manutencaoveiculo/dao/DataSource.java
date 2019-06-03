@@ -11,15 +11,15 @@ public class DataSource {
  
     private static ComboPooledDataSource cpds = new ComboPooledDataSource();
     
-//	private final static String driver          = "com.mysql.jdbc.Driver";
-//	private final static String url             = "jdbc:mysql://pwms.com.br:3306/waisoc_manutencao";
-//	private final static String user            = "waisoc_manutenca";
-//	private final static String pwd             = "manutencao123";
-
 	private final static String driver          = "com.mysql.jdbc.Driver";
-	private final static String url             = "jdbc:mysql://localhost:3306/manutencao_veiculo";
-	private final static String user            = "root";
-	private final static String pwd             = "";
+	private final static String url             = "jdbc:mysql://pwms.com.br:3306/waisoc_manutencao";
+	private final static String user            = "waisoc_manutenca";
+	private final static String pwd             = "manutencao123";
+
+//	private final static String driver          = "com.mysql.jdbc.Driver";
+//	private final static String url             = "jdbc:mysql://localhost:3306/manutencao_veiculo";
+//	private final static String user            = "root";
+//	private final static String pwd             = "";
     
  
     static {
