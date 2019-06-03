@@ -44,16 +44,16 @@
             </div>
         </section>
         <section ng-if="tela==2" id="tela2" data-apelido="listagem">
-            <h2>Lista</h2>
-            <ul class="list-group list-group-flush">
+            <ul class="list-group">
 
-                <li class="list-group-item" ng-repeat="(key, value) in lista">
+                <li class="list-group-item" ng-repeat="(key, item) in lista">
                     
                     <span class="label label-primary">11/12/2019</span>
-                    {{value.ano}} - {{value.fabricante}} - {{value.modelo}}
-                    <a href="javascript:void(0)" class="">
+                    {{item.id}} - {{item.ano}} - {{item.fabricante}} - {{item.modelo}}
+                    <a href="javascript:void(0)" class="" ng-show="item.confirmar!=true" ng-click="item.confirmar=true">
                         <i class="fas fa-trash"></i>
                     </a>    
+                    <span class="label label-danger" ng-show="item.confirmar==true" ng-click="excluir(item);">confirmar?</span>
                 </li>
                 
             </ul>
@@ -87,9 +87,11 @@
               <span class="input-group-addon" id="basic-addon1">Modelo</span>
               <input type="text" class="form-control" placeholder="" aria-describedby="basic-addon1">
             </div> 
-            <a class="btn btn-success" ng-click="salvar()">Salvar</a>         
-            <a class="btn btn-warning" ng-click="voltar()">Voltar</a>         
-            <a class="btn btn-danger" ng-click="deletar(entidadeSelecionada.id)">Excluir</a>         
+            <div class="row">
+                <a class="btn btn-success col-md-4" ng-click="salvar()">Salvar</a>         
+                <a class="btn btn-warning col-md-4" ng-click="voltar()">Voltar</a>         
+                <a class="btn btn-danger col-md-4" ng-click="deletar(entidadeSelecionada.id)">Excluir</a>         
+            </div>
         </section>
         <nav>
             <ul>

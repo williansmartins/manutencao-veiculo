@@ -96,10 +96,11 @@ angular.module('principal')
         })
     }
 
-    var excluir = function(){
-        CarroService.excluir(2)
+    $scope.excluir = function(item){
+        CarroService.excluir(item.id)
         .success(function(response){ 
             console.info(response); 
+            buscarTudo();
         })
         .error(function(response){ 
             console.info(response); 
