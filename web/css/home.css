@@ -21,6 +21,12 @@
 #home section#tela1 ul li {
   outline: solid 1px gray;
 }
+#home section#tela1 .thumbnail i.fas {
+  font-size: 50px;
+}
+#home section#tela2 ul li a {
+  color: red;
+}
 #home section#tela3 li {
   border-bottom: solid 1px #19152d;
   text-align: left;
@@ -66,27 +72,6 @@
   font-size: 18px;
   background-color: #337ab7;
   width: 200px;
-}
-#home section ul {
-  padding: 0;
-}
-#home section ul li {
-  list-style: none;
-}
-#home section ul li a {
-  font-size: 35px;
-  text-decoration: none;
-}
-#home section ul li a .fa-pencil-alt {
-  color: #00d008;
-  margin-right: 20px;
-}
-#home section ul li a .fa {
-  font-size: 30px;
-}
-#home section ul li a .fa-times {
-  color: red;
-  margin-left: 20px;
 }
 #home nav {
   border-top: solid 1px #F0EFF5;

@@ -16,7 +16,7 @@ function LoginService ($q, $window, $http) {
         login : function (form) {
             return $http({
                 method : "POST",
-                url : barramento + "/signin",
+                url : barramentoLogin + "/signin",
                 params: {
                     'email': form.email,
                     'password': form.password
@@ -27,7 +27,7 @@ function LoginService ($q, $window, $http) {
         signup : function (form) {
             return $http({
                 method : "POST",
-                url : barramento + "/signup",
+                url : barramentoLogin + "/signup",
                 params: {
                     'name': form.name,
                     'email': form.email,
@@ -40,7 +40,7 @@ function LoginService ($q, $window, $http) {
         validarDisponibilidade : function (form) {
             return $http({
                 method : "POST",
-                url : barramento + "/validarDisponibilidade",
+                url : barramentoLogin + "/validarDisponibilidade",
                 params: {
                     'email': form.email
                 }

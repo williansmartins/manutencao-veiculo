@@ -1,6 +1,6 @@
 angular.module('principal')
-.controller('LoginController', ['$scope', '$uibModal', '$log', '$document', '$location', '$window', '$filter', 'LoginService', '$rootScope', '$localStorage','$rootScope', 'CarroService', 
-	function ($scope, $uibModal, $log, $document, $location, $window, $filter, LoginService, $rootScope, $localStorage, $rootScope, CarroService) {
+.controller('LoginController', ['$scope', '$uibModal', '$log', '$document', '$location', '$window', '$filter', 'LoginService', '$rootScope', '$localStorage','$rootScope', 
+	function ($scope, $uibModal, $log, $document, $location, $window, $filter, LoginService, $rootScope, $localStorage, $rootScope) {
 
     $scope.temErro = false;
     $scope.mensagem = "";
@@ -93,75 +93,8 @@ angular.module('principal')
         $rootScope.$broadcast('topic', objetoGlogal);
     }
 
-    var buscarTudo = function(){
-        CarroService.buscarTudo()
-        .success(function(response, status, a){ 
-            console.info(response); 
-        })
-        .error(function(response, status, a){ 
-            console.info(response); 
-        })
-    }
-
-    var buscarPorID = function(){
-        CarroService.buscarPorID(3)
-        .success(function(response){ 
-            console.info(response); 
-        })
-        .error(function(response){ 
-            console.info(response); 
-        })
-    }
-
-    var criar = function(){
-        var objeto = {
-            "fabricante": "Honda-WEB",
-            "modelo": "FIT",
-            "ano": "2010"
-        }
-
-        CarroService.criar(objeto)
-        .success(function(response){ 
-            console.info(response); 
-        })
-        .error(function(response){ 
-            console.info(response); 
-        })
-    }
-
-    var atualizar = function(){
-        var objeto = {
-            "id" : "3",
-            "fabricante": "Honda-Novo",
-            "modelo": "FIT",
-            "ano": "2010"
-        }
-
-        CarroService.atualizar(objeto)
-        .success(function(response){ 
-            console.info(response); 
-        })
-        .error(function(response){ 
-            console.info(response); 
-        })
-    }
-
-    var excluir = function(){
-        CarroService.excluir(2)
-        .success(function(response){ 
-            console.info(response); 
-        })
-        .error(function(response){ 
-            console.info(response); 
-        })
-    }
-
     init = function() {
         limparDadosDeLogin();
-        // buscarTudo();
-        // buscarPorID();
-        // excluir();
-        // atualizar();
     };
 
 	init();

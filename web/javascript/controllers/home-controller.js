@@ -1,6 +1,6 @@
 angular.module('principal')
-.controller('HomeController', ['$scope', '$uibModal', '$log', '$document', '$location', '$window', '$filter', 'HomeService', '$rootScope', '$localStorage','$rootScope', 
-	function ($scope, $uibModal, $log, $document, $location, $window, $filter, HomeService, $rootScope, $localStorage, $rootScope) {
+.controller('HomeController', ['$scope', '$uibModal', '$log', '$document', '$location', '$window', '$filter', 'HomeService', '$rootScope', '$localStorage','$rootScope', 'CarroService', 
+	function ($scope, $uibModal, $log, $document, $location, $window, $filter, HomeService, $rootScope, $localStorage, $rootScope, CarroService) {
 
     $scope.temErro = false;
     $scope.tela = 1;
@@ -11,44 +11,27 @@ angular.module('principal')
     	"password": "martin"
     };
     $scope.$storage = $localStorage;
-    $scope.apontamentosDoDia = {};
-    $scope.todosApontamentos = {};
-    $scope.todasDescricoes = {};
+    $scope.lista = {};
     $scope.sucesso = false;
-    $scope.entidadeSelecionada = null;
-    $scope.apontamentosOrganizados = null;
-    $scope.titulo = "Manutenção de Veículos";
+    $scope.itemSelecionado = null;
+    $scope.tituloHome = "Manutenção de Veículos";
+    $scope.titulo = $scope.tituloHome;
 
     $scope.mudarTela = function(tela){
     	$scope.tela = tela;
 
         if(tela==1){
-            $scope.titulo = "Apontamento de horas";
+            $scope.titulo = $scope.tituloHome;
         }
     	if(tela==2){
-    		buscarApontamentosDoDia();
-            $scope.titulo = "Apontamento de HOJE";
+            buscarTudo();
+            $scope.titulo = "Manutenções realizadas";
     	}
 
         if(tela==3){
-            $('.itens').hide();
-            buscarTodosApontamentos();
-            $scope.titulo = "Todos os apontamentos";
+            $scope.titulo = "Edição de Manutenção";
         }
 
-        if(tela==4){
-            $scope.titulo = "Editando um apontamento";
-        }
-
-        if(tela==5){
-            $scope.titulo = "Editando uma descrição";
-        }
-
-        if(tela==6){
-            $('.itens').hide();
-            buscarApontamentosDoMesAtual();
-            $scope.titulo = "Mês atual";
-        }
     }
 
 	$scope.sair = function(){
@@ -59,7 +42,75 @@ angular.module('principal')
         $scope.mudarTela(3);
     }
 
+    var buscarTudo = function(){
+        CarroService.buscarTudo()
+        .success(function(response, status, a){ 
+            $scope.lista = response;
+            console.info(response); 
+        })
+        .error(function(response, status, a){ 
+            console.info(response); 
+        })
+    }
+
+    var buscarPorID = function(){
+        CarroService.buscarPorID(4051)
+        .success(function(response){ 
+            console.info(response); 
+        })
+        .error(function(response){ 
+            console.info(response); 
+        })
+    }
+
+    var criar = function(){
+        var objeto = {
+            "fabricante": "Honda-WEB",
+            "modelo": "FIT",
+            "ano": "2010"
+        }
+
+        CarroService.criar(objeto)
+        .success(function(response){ 
+            console.info(response); 
+        })
+        .error(function(response){ 
+            console.info(response); 
+        })
+    }
+
+    var atualizar = function(){
+        var objeto = {
+            "id" : "3",
+            "fabricante": "Honda-Novo",
+            "modelo": "FIT",
+            "ano": "2010"
+        }
+
+        CarroService.atualizar(objeto)
+        .success(function(response){ 
+            console.info(response); 
+        })
+        .error(function(response){ 
+            console.info(response); 
+        })
+    }
+
+    var excluir = function(){
+        CarroService.excluir(2)
+        .success(function(response){ 
+            console.info(response); 
+        })
+        .error(function(response){ 
+            console.info(response); 
+        })
+    }
+
     init = function() {
+        buscarTudo();
+        buscarPorID();
+        // excluir();
+        // atualizar();
     };
 
 	init();
