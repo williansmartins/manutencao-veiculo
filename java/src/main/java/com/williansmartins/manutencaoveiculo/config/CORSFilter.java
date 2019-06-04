@@ -1,4 +1,4 @@
-package com.williansmartins.manutencaoveiculo.controller;
+package com.williansmartins.manutencaoveiculo.config;
 
 import java.io.IOException;
 

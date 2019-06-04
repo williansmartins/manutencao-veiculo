@@ -1,9 +1,18 @@
 package com.williansmartins.manutencaoveiculo.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Manutencao {
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 
+import com.williansmartins.manutencaoveiculo.config.JsonDateSerializer;
+
+public class Manutencao implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int id;
 	private int id_veiculo;
 	private int id_usuario;
@@ -27,6 +36,7 @@ public class Manutencao {
 		this.observacoes = observacoes;
 	}
 
+	@JsonSerialize(using=JsonDateSerializer.class)
 	public Date getData() {
 		return data;
 	}

@@ -1,4 +1,4 @@
-package com.williansmartins.manutencaoveiculo.dao;
+package com.williansmartins.manutencaoveiculo.config;
 
 import java.beans.PropertyVetoException;
 import java.sql.Connection;
