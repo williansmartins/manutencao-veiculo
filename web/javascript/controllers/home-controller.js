@@ -1,6 +1,6 @@
 angular.module('principal')
-.controller('HomeController', ['$scope', '$uibModal', '$log', '$document', '$location', '$window', '$filter', 'HomeService', '$rootScope', '$localStorage','$rootScope', 'CarroService', 
-	function ($scope, $uibModal, $log, $document, $location, $window, $filter, HomeService, $rootScope, $localStorage, $rootScope, CarroService) {
+.controller('HomeController', ['$scope', '$uibModal', '$log', '$document', '$location', '$window', '$filter', '$rootScope', '$localStorage','$rootScope', 'ManutencaoService', 
+	function ($scope, $uibModal, $log, $document, $location, $window, $filter, $rootScope, $localStorage, $rootScope, ManutencaoService) {
 
     $scope.temErro = false;
     $scope.tela = 1;
@@ -43,7 +43,7 @@ angular.module('principal')
     }
 
     var buscarTudo = function(){
-        CarroService.buscarTudo()
+        ManutencaoService.buscarTudo()
         .success(function(response, status, a){ 
             $scope.lista = response;
             console.info(response); 
@@ -54,7 +54,7 @@ angular.module('principal')
     }
 
     var buscarPorID = function(){
-        CarroService.buscarPorID(4051)
+        ManutencaoService.buscarPorID(4051)
         .success(function(response){ 
             console.info(response); 
         })
@@ -70,7 +70,7 @@ angular.module('principal')
             "ano": "2010"
         }
 
-        CarroService.criar(objeto)
+        ManutencaoService.criar(objeto)
         .success(function(response){ 
             console.info(response); 
         })
@@ -87,7 +87,7 @@ angular.module('principal')
             "ano": "2010"
         }
 
-        CarroService.atualizar(objeto)
+        ManutencaoService.atualizar(objeto)
         .success(function(response){ 
             console.info(response); 
         })
@@ -97,7 +97,7 @@ angular.module('principal')
     }
 
     $scope.excluir = function(item){
-        CarroService.excluir(item.id)
+        ManutencaoService.excluir(item.id)
         .success(function(response){ 
             console.info(response); 
             buscarTudo();
