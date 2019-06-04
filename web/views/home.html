@@ -48,8 +48,8 @@
 
                 <li class="list-group-item" ng-repeat="(key, item) in lista">
                     
-                    <span class="label label-primary">11/12/2019</span>
-                    {{item.id}} - {{item.ano}} - {{item.fabricante}} - {{item.modelo}}
+                    <span class="label label-primary">{{item.data}}</span>
+                    {{item.categoria}} - {{item.kilometragem}} km
                     <a href="javascript:void(0)" class="" ng-show="item.confirmar!=true" ng-click="item.confirmar=true">
                         <i class="fas fa-trash"></i>
                     </a>    
