@@ -13,51 +13,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.williansmartins.manutencaoveiculo.dao.ManutencaoDAO;
 import com.williansmartins.manutencaoveiculo.model.Categoria;
 import com.williansmartins.manutencaoveiculo.model.Manutencao;
 
 @Controller
-@RequestMapping("/manutencao2")
+@RequestMapping("/manutencoes")
 public class ManutencoesController {
 
-	@RequestMapping("/exemplo")
-	@ResponseBody
-	public String getManutencao() {
-		return "{\"users\":[{\"name\":\"Lucas\", \"country\":\"Brazil\"}," +
-		           "{\"name\":\"Jackie\",\"country\":\"China\"}]}";
-	}
-
-	@RequestMapping("/inserirCarro")
-	@ResponseBody
-	public String inserirCarro() {
-		return "{\"inserido\":[{\"name\":\"Lucas\", \"country\":\"Brazil\"}," +
-				"{\"name\":\"Jackie\",\"country\":\"China\"}]}";
-	}
-	
+	ManutencaoDAO dao = new ManutencaoDAO();
+		
 	@RequestMapping(value="", method=RequestMethod.POST)  
 	@ResponseBody
 	public Manutencao inserir(@RequestBody Manutencao entrada) {
+		int id = dao.inserir(0, 0, new Date(), Categoria.COMBUSTIVEL, 100000, "NOVO CLIENTE");
+		entrada.setId(id);
 		return entrada;
 	}
 	
 	@RequestMapping(value="", method=RequestMethod.GET)  
 	@ResponseBody
-	public ResponseEntity<List<Manutencao>> buscarTudo() {
+	public List<Manutencao> buscarTudo() {
+		return dao.buscarTudo();
 		
-		Manutencao m1 = new Manutencao();
-		m1.setCategoria(Categoria.COMBUSTIVEL);
-		m1.setData(new Date());
-		m1.setId(1);
-		m1.setId_usuario(2);
-		m1.setId_veiculo(3);
-		m1.setKilometragem(12345);
-		
-		List<Manutencao> lista = new ArrayList<Manutencao>();
-		lista.add(m1);
-		lista.add(m1);
-		lista.add(m1);
-		
-		return new ResponseEntity<List<Manutencao>>(lista, HttpStatus.OK) ;
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)  
