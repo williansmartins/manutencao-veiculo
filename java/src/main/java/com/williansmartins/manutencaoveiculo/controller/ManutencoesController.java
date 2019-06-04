@@ -26,7 +26,7 @@ public class ManutencoesController {
 	@RequestMapping(value="", method=RequestMethod.POST)  
 	@ResponseBody
 	public Manutencao inserir(@RequestBody Manutencao entrada) {
-		int id = dao.inserir(0, 0, new Date(), Categoria.COMBUSTIVEL, 100000, "NOVO CLIENTE");
+		int id = dao.inserir(entrada.getId_veiculo(), entrada.getId_usuario(), entrada.getData(), entrada.getCategoria(), entrada.getKilometragem(), entrada.getObservacoes());
 		entrada.setId(id);
 		return entrada;
 	}
