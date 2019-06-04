@@ -3,7 +3,7 @@ angular.module('principal')
 	function ($scope, $uibModal, $log, $document, $location, $window, $filter, $rootScope, $localStorage, $rootScope, ManutencaoService) {
 
     $scope.temErro = false;
-    $scope.tela = 1;
+    $scope.tela = 3;
     $scope.mensagem = "";
     $scope.form = {
     	"name": "",

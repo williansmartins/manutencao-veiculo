@@ -58,36 +58,36 @@
                 
             </ul>
         </section>
-        <section ng-if="(tela==3)" id="tela3" data-apelido="edicao">
-            <div class="btn-group hide">
-              <button type="button" class="btn btn-danger btn-sm">Action</button>
-              <button type="button" class="btn btn-danger btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="caret"></span>
-                <span class="sr-only">Toggle Dropdown</span>
-              </button>
-              <ul class="dropdown-menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a href="#">Separated link</a></li>
-              </ul>
+        <section ng-if="(tela==3)"  id="tela3" data-apelido="edicao">
+            <div class="container">
+                <div class="">
+                    <div class="input-group">
+                      <span class="input-group-addon">Data</span>
+                      <input type="text" class="form-control" />
+                    </div> 
+                    <br />
+                    <div class="input-group">
+                      <span class="input-group-addon">Categoria</span>
+                      <input type="text" class="form-control" />
+                    </div>   
+                    <br />
+                    <div class="input-group">
+                      <span class="input-group-addon">Kilometragem</span>
+                      <input type="text" class="form-control" />
+                    </div> 
+                    <br />
+                    <div class="input-group">
+                      <span class="input-group-addon">Modelo</span>
+                      <input type="text" class="form-control" />
+                    </div>
+                    <br />
+                    <div class="input-group">
+                      <span class="input-group-addon">Observações</span>
+                      <input type="text" class="form-control" />
+                    </div> 
+                </div>
             </div>
-            <div class="input-group">
-              <span class="input-group-addon" id="basic-addon1">Ano</span>
-              <input type="text" class="form-control" placeholder="" aria-describedby="basic-addon1">
-            </div>   
-            <br />
-            <div class="input-group">
-              <span class="input-group-addon" id="basic-addon1">Fabricante</span>
-              <input type="text" class="form-control" placeholder="" aria-describedby="basic-addon1">
-            </div> 
-            <br />
-            <div class="input-group">
-              <span class="input-group-addon" id="basic-addon1">Modelo</span>
-              <input type="text" class="form-control" placeholder="" aria-describedby="basic-addon1">
-            </div> 
-            <div class="row">
+            <div class="">
                 <a class="btn btn-success col-md-4" ng-click="salvar()">Salvar</a>         
                 <a class="btn btn-warning col-md-4" ng-click="voltar()">Voltar</a>         
                 <a class="btn btn-danger col-md-4" ng-click="deletar(entidadeSelecionada.id)">Excluir</a>         
