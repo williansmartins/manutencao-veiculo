@@ -40,29 +40,25 @@ public class ManutencoesController {
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)  
 	@ResponseBody
-	public Manutencao buscar() {
-		Manutencao objeto = new Manutencao();
-		objeto.setCategoria(Categoria.COMBUSTIVEL);
-		objeto.setData(new Date());
-		objeto.setId(1);
-		objeto.setId_usuario(2);
-		objeto.setId_veiculo(3);
-		objeto.setKilometragem(12345);
-		return objeto;
+	public Manutencao buscar(@PathVariable int id) {
+		return dao.buscarPorId(id);
+		
 	}
 
 	@ResponseBody
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
-	public ResponseEntity<Manutencao> atualizar(@RequestBody Manutencao Manutencao, @PathVariable String id) {
-		Manutencao.setObservacoes(Manutencao.getObservacoes() + " - nova");
-		return new ResponseEntity<Manutencao>(Manutencao, HttpStatus.OK); 
+	public int atualizar(@RequestBody Manutencao manutencao, @PathVariable String id) {
+		manutencao.setId(Integer.parseInt(id));
+		int resultado = dao.atualizar(manutencao);
+		return resultado; 
 	}
 
 	@ResponseBody
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
-	public ResponseEntity<Manutencao> deletar(@PathVariable String id) {
+	public int deletar(@PathVariable String id) {
 		System.out.println("Deletando o objeto com id:" + id);
-		return new ResponseEntity<Manutencao>(new Manutencao(), HttpStatus.OK) ;
+		int deuCerto = dao.excluir(Integer.valueOf(id));
+		return deuCerto;
 	}
 	
 }

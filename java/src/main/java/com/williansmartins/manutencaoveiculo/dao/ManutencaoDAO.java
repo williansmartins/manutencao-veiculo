@@ -92,7 +92,7 @@ public class ManutencaoDAO{
     	PreparedStatement prepStatement = null;
 		try {
 			connection = DataSource.getConnection();
-        	String sql = "Delete from carros where id=" + id + "";
+        	String sql = "Delete from manutencoes where id=" + id + "";
         	prepStatement = connection.prepareStatement(sql);
         	int deuCerto = prepStatement.executeUpdate(sql);
 	        
@@ -108,35 +108,45 @@ public class ManutencaoDAO{
         }
 	}
     
-    public int atualizar(Carro carro) {
+    public int atualizar(Manutencao objeto) {
     	Connection connection = null;
     	PreparedStatement prepStatement = null;
     	
 		try {
 			connection = DataSource.getConnection();
-    		
-    		String fabricanteSQL = "";
-    		String modeloSQL = "";
-    		String anoSQL = "";
-    		List<String> lista = new ArrayList<String>();
-    		
-    		if(carro.getFabricante() != null) {
-    			fabricanteSQL = "fabricante = '"+ carro.getFabricante() +"'";
-    			lista.add(fabricanteSQL);
-    		}
-    		
-    		if(carro.getModelo() != null) {
-    			modeloSQL = "modelo = '"+ carro.getModelo() +"'";
-    			lista.add(modeloSQL);
-    		}
-    		
-    		if(carro.getAno() != null) {
-    			anoSQL = "ano = '"+ carro.getAno() +"'";
-    			lista.add(anoSQL);
-    		}
-    		
-    		String sql = "UPDATE carros SET " + String.join(", ", lista) + " WHERE id=" + carro.getId() + "";
-    		    		
+			List<String> lista = new ArrayList<String>();
+
+			if (objeto.getId() != 0) {
+				lista.add("id = '" + objeto.getId() + "'");
+			}
+
+			if (objeto.getId_veiculo() != 0) {
+				lista.add("id_veiculo = '" + objeto.getId_veiculo() + "'");
+			}
+
+			if (objeto.getId_usuario() != 0) {
+				lista.add("id_usuario = '" + objeto.getId_usuario() + "'");
+			}
+
+			if (objeto.getData() != null) {
+				DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+				String dataFormatada = df.format(objeto.getData()); 
+				lista.add("data = '" + dataFormatada + "'");
+			}
+
+			if (objeto.getCategoria() != null) {
+				lista.add("categoria = '" + objeto.getCategoria() + "'");
+			}
+
+			if (objeto.getKilometragem() != 0) {
+				lista.add("kilometragem = '" + objeto.getKilometragem() + "'");
+			}
+
+			if (objeto.getObservacoes() != null) {
+				lista.add("observacoes = '" + objeto.getObservacoes() + "'");
+			}
+
+			String sql = "UPDATE manutencoes SET " + String.join(", ", lista) + " WHERE id=" + objeto.getId() + "";
     		prepStatement = connection.prepareStatement(sql);
     		int deuCerto = prepStatement.executeUpdate();
     		
@@ -152,7 +162,7 @@ public class ManutencaoDAO{
         }
     }
 
-	public Carro buscarPorId(int id){
+	public Manutencao buscarPorId(int id){
 		Connection connection = null;
     	PreparedStatement prepStatement = null;
     	ResultSet resultSet = null;
@@ -160,24 +170,26 @@ public class ManutencaoDAO{
 		try {
 			connection = DataSource.getConnection();
 			
-    		String sql = "select * from carros where id = "+id+" ";
+    		String sql = "select * from manutencoes where id = "+id+" ";
     		prepStatement = connection.prepareStatement(sql);
     		resultSet = prepStatement.executeQuery(); 
 
     		resultSet.first();
 
-    		Carro carro = new Carro();
-
-    		carro.setId(resultSet.getInt("id"));
-    		carro.setFabricante(resultSet.getString("fabricante"));
-    		carro.setModelo(resultSet.getString("modelo"));
-    		carro.setAno(resultSet.getString("ano"));
+    		Manutencao objeto = new Manutencao();
+        	objeto.setId(resultSet.getInt("id"));
+        	objeto.setId_veiculo(resultSet.getInt("id_veiculo"));
+        	objeto.setId_usuario(resultSet.getInt("id_usuario"));
+        	objeto.setData(resultSet.getDate("data"));
+        	objeto.setCategoria(Categoria.valueOf(resultSet.getString("categoria")));
+        	objeto.setKilometragem(resultSet.getInt("kilometragem"));
+        	objeto.setObservacoes(resultSet.getString("observacoes"));
             
-            return carro;
+            return objeto;
         }
         catch (SQLException ex) {
             System.out.print("Erro ao preparar: " + ex.getMessage());
-            return new Carro();
+            return new Manutencao();
         }finally {
             try { if (prepStatement != null) prepStatement.close(); } catch (Exception e) {};
             try { if (connection != null) connection.close(); } catch (Exception e) {};
