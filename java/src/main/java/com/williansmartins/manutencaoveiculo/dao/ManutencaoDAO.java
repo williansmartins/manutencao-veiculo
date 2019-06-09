@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import com.williansmartins.manutencaoveiculo.config.DataSource;
 import com.williansmartins.manutencaoveiculo.model.Categoria;
@@ -24,8 +25,8 @@ public class ManutencaoDAO {
 		try {
 			connection = DataSource.getConnection();
 			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-			Date date = new Date();
-			String dataFormatada = dateFormat.format(date);
+			dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+			String dataFormatada = dateFormat.format(data);
 
 			String sql = "INSERT INTO manutencoes (id_veiculo, id_usuario, data, categoria, kilometragem, observacoes) VALUES ( '"
 					+ id_veiculo + "','" + id_usuario + "','" + dataFormatada + "','" + categoria + "','" + kilometragem + "','"
@@ -155,7 +156,10 @@ public class ManutencaoDAO {
 			}
 
 			if (objeto.getData() != null) {
-				lista.add("data = '" + objeto.getData() + "'");
+				DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+				dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+				String dataFormatada = dateFormat.format(objeto.getData());
+				lista.add("data = '" + dataFormatada + "'");
 			}
 
 			if (objeto.getCategoria() != null) {

@@ -3,7 +3,7 @@ angular.module('principal')
 	function ($scope, $uibModal, $log, $document, $location, $window, $filter, $rootScope, $localStorage, $rootScope, ManutencaoService) {
 
     $scope.temErro = false;
-    $scope.tela = 3;
+    $scope.tela = 2;
     $scope.mensagem = "";
     $scope.form = {
     	"name": "",
@@ -38,10 +38,6 @@ angular.module('principal')
     	$window.location.href = "#login";
     }
 
-    $scope.voltar = function(){
-        $scope.mudarTela(3);
-    }
-
     var buscarTudo = function(){
         ManutencaoService.buscarTudo()
         .success(function(response, status, a){ 
@@ -74,14 +70,7 @@ angular.module('principal')
     }
 
     var atualizar = function(){
-        var objeto = {
-            "id" : "3",
-            "fabricante": "Honda-Novo",
-            "modelo": "FIT",
-            "ano": "2010"
-        }
-
-        ManutencaoService.atualizar(objeto)
+        ManutencaoService.atualizar($scope.itemSelecionado)
         .success(function(response){ 
             console.info(response); 
         })
@@ -102,8 +91,19 @@ angular.module('principal')
     }
 
     $scope.salvar = function(){
-        criar();
+        if($scope.itemSelecionado.id){
+            atualizar();
+        }else{
+            criar();
+        }
+
+        
         resetItemSelecionado();
+    }
+
+    $scope.prepararParaEditar = function(item){
+        $scope.itemSelecionado = item;
+        $scope.mudarTela(3);
     }
 
     var resetItemSelecionado = function(){
@@ -118,7 +118,7 @@ angular.module('principal')
 
     init = function() {
         buscarTudo();
-        buscarPorID();
+        //buscarPorID();
         // excluir();
         // atualizar();
     };

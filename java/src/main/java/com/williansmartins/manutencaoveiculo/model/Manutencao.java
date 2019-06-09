@@ -3,9 +3,7 @@ package com.williansmartins.manutencaoveiculo.model;
 import java.io.Serializable;
 import java.util.Date;
 
-import org.codehaus.jackson.map.annotate.JsonSerialize;
-
-import com.williansmartins.manutencaoveiculo.config.JsonDateSerializer;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class Manutencao implements Serializable{
 
@@ -16,13 +14,14 @@ public class Manutencao implements Serializable{
 	private int id;
 	private int id_veiculo;
 	private int id_usuario;
+//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "UTC")
 	private Date data;
 	private Categoria categoria;
 	private int kilometragem;
 	private String observacoes;
 
 	public Manutencao() {
-
+		System.out.println("aqui");
 	}
 
 	public Manutencao(int id, int id_veiculo, int id_usuario, Date data, Categoria categoria, int kilometragem, String observacoes) {
@@ -34,9 +33,9 @@ public class Manutencao implements Serializable{
 		this.categoria = categoria;
 		this.kilometragem = kilometragem;
 		this.observacoes = observacoes;
+		System.out.println("aqui 2");
 	}
 
-	@JsonSerialize(using=JsonDateSerializer.class)
 	public Date getData() {
 		return data;
 	}

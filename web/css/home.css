@@ -24,8 +24,13 @@
 #home section#tela1 .thumbnail i.fas {
   font-size: 50px;
 }
+#home section#tela2 ul li {
+  text-align: left;
+}
 #home section#tela2 ul li a {
+  float: right;
   color: red;
+  margin-left: 5px;
 }
 #home section#tela3 li {
   border-bottom: solid 1px #19152d;
