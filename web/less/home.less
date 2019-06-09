@@ -13,7 +13,7 @@
 		border-bottom: solid 1px @linha-cinza-escura;
 		background-color: @background_color_1;
 		height: 44px;
-		position: fixed;
+		position: absolute;
 		width: 100%;
 		z-index: 1;
 
@@ -60,57 +60,13 @@
 			}
 			
 			a{
-				font-size: 20px;
 				margin: 11px auto;
-    			display: block;
-    			width: 304px;
-    			position: relative;
-
-    			.total {
-				    font-size: 15px;
-				}
-
-				.data{
-					color: gray;
-					font-size: 20px;
-					line-height: 14px;
-					position: absolute;
-					top: 3px;
-					border-left: solid 5px;
-					padding-left: 4px;
-				}
-
-				.horas{
-					margin-left: 120px;
-					position: absolute;
-
-					.hora{
-						color: #ffffff;
-						margin: 0px 3px;
-						font-size: 11px;
-						padding: 6px;
-						background-color: #337ab7;
-						border-radius: 12px;
-						line-height: 8px;
-						float: right;
-					}
-					
-				}
-
-
-				.previsao{
-					width: 216px;
-				}
+				width: 29%;
 			}
 		}
 
 		&#tela2{
-			.hora{
-				color: #ffffff;
-				font-size: 18px;
-				background-color: #337ab7;
-				width: 200px;
-			}
+			
 		}
 
 	}
@@ -118,7 +74,7 @@
 		border-top: solid 1px @linha-cinza-clara;
 		background-color: @background_color_1;
 		height: 49px;
-		position: fixed;
+		position: absolute;
 		bottom: 0%;
 		width: 100%;
 		text-align: center;
@@ -162,3 +118,9 @@
 // 		background-color: red;
 // 	}
 // }
+
+@media (min-width: 768px){
+	.container {
+	    max-width: 320px;
+	}
+}

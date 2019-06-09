@@ -5,6 +5,9 @@ body#index {
   font-weight: 400;
   position: relative;
   height: 100%;
+  max-width: 320px;
+  margin: 0 auto;
+  outline: solid 1px #E1E1E1;
 }
 body#index .base {
   z-index: 1;

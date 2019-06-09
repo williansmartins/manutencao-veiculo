@@ -13,7 +13,7 @@ angular.module('principal')
     $scope.$storage = $localStorage;
     $scope.lista = {};
     $scope.sucesso = false;
-    $scope.itemSelecionado = null;
+    $scope.itemSelecionado = new Object();
     $scope.tituloHome = "Manutenção de Veículos";
     $scope.titulo = $scope.tituloHome;
 
@@ -64,13 +64,7 @@ angular.module('principal')
     }
 
     var criar = function(){
-        var objeto = {
-            "fabricante": "Honda-WEB",
-            "modelo": "FIT",
-            "ano": "2010"
-        }
-
-        ManutencaoService.criar(objeto)
+        ManutencaoService.criar($scope.itemSelecionado)
         .success(function(response){ 
             console.info(response); 
         })
@@ -105,6 +99,21 @@ angular.module('principal')
         .error(function(response){ 
             console.info(response); 
         })
+    }
+
+    $scope.salvar = function(){
+        criar();
+        resetItemSelecionado();
+    }
+
+    var resetItemSelecionado = function(){
+        $scope.itemSelecionado = {
+            categoria: "", 
+            data: "", 
+            kilometragem: "", 
+            modelo: "", 
+            observacoes: ""
+        };
     }
 
     init = function() {

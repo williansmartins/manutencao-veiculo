@@ -4,7 +4,7 @@
             <h2>{{titulo}}</h2>
         </header>
         <section ng-if="tela==1" id="tela1" data-apelido="home">
-            <div class="row container">
+            <div class="row">
                 <div class="col-xs-6">
                     <div class="thumbnail">
                         <i class="fas fa-oil-can"></i>
@@ -58,39 +58,39 @@
                 
             </ul>
         </section>
-        <section ng-if="(tela==3)"  id="tela3" data-apelido="edicao">
+        <section ng-if="tela==3"  id="tela3" data-apelido="edicao">
             <div class="container">
                 <div class="">
                     <div class="input-group">
                       <span class="input-group-addon">Data</span>
-                      <input type="text" class="form-control" />
+                      <input type="text" ng-model="itemSelecionado.data" class="form-control" />
                     </div> 
                     <br />
                     <div class="input-group">
                       <span class="input-group-addon">Categoria</span>
-                      <input type="text" class="form-control" />
+                      <input type="text" ng-model="itemSelecionado.categoria" class="form-control" />
                     </div>   
                     <br />
                     <div class="input-group">
                       <span class="input-group-addon">Kilometragem</span>
-                      <input type="text" class="form-control" />
+                      <input type="text" ng-model="itemSelecionado.kilometragem" class="form-control" />
                     </div> 
                     <br />
                     <div class="input-group">
                       <span class="input-group-addon">Modelo</span>
-                      <input type="text" class="form-control" />
+                      <input type="text" ng-model="itemSelecionado.modelo" class="form-control" />
                     </div>
                     <br />
                     <div class="input-group">
                       <span class="input-group-addon">Observações</span>
-                      <input type="text" class="form-control" />
+                      <input type="text" ng-model="itemSelecionado.observacoes" class="form-control" />
                     </div> 
                 </div>
             </div>
             <div class="">
-                <a class="btn btn-success col-md-4" ng-click="salvar()">Salvar</a>         
-                <a class="btn btn-warning col-md-4" ng-click="voltar()">Voltar</a>         
-                <a class="btn btn-danger col-md-4" ng-click="deletar(entidadeSelecionada.id)">Excluir</a>         
+                <a class="btn btn-success " ng-click="salvar()">Salvar</a>         
+                <a class="btn btn-warning " ng-click="voltar()">Voltar</a>         
+                <a class="btn btn-danger " ng-click="deletar(entidadeSelecionada.id)">Excluir</a>         
             </div>
         </section>
         <nav>
