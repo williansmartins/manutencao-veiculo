@@ -3,8 +3,6 @@ package com.williansmartins.manutencaoveiculo.model;
 import java.io.Serializable;
 import java.util.Date;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 public class Manutencao implements Serializable{
 
 	/**
@@ -91,5 +89,5 @@ public class Manutencao implements Serializable{
 	public void setObservacoes(String observacoes) {
 		this.observacoes = observacoes;
 	}
-
+	
 }
