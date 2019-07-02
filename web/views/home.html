@@ -4,7 +4,7 @@
             <h2>{{titulo}}</h2>
         </header>
         <section ng-if="tela==1" id="tela1" data-apelido="home">
-            <div class="row container">
+            <div class="row">
                 <div class="col-xs-6">
                     <div class="thumbnail">
                         <i class="fas fa-oil-can"></i>
@@ -45,52 +45,51 @@
         </section>
         <section ng-if="tela==2" id="tela2" data-apelido="listagem">
             <ul class="list-group">
-
                 <li class="list-group-item" ng-repeat="(key, item) in lista">
-                    
                     <span class="label label-primary">{{item.data}}</span>
-                    {{item.categoria}} - {{item.kilometragem}} km
+                    {{item.categoria}}
                     <a href="javascript:void(0)" class="" ng-show="item.confirmar!=true" ng-click="item.confirmar=true">
                         <i class="fas fa-trash"></i>
+                    </a> 
+                    <a href="javascript:void(0)" ng-click="prepararParaEditar(item)">
+                        <i class="fas fa-edit"></i>
                     </a>    
                     <span class="label label-danger" ng-show="item.confirmar==true" ng-click="excluir(item);">confirmar?</span>
                 </li>
-                
             </ul>
         </section>
-        <section ng-if="(tela==3)" id="tela3" data-apelido="edicao">
-            <div class="btn-group hide">
-              <button type="button" class="btn btn-danger btn-sm">Action</button>
-              <button type="button" class="btn btn-danger btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="caret"></span>
-                <span class="sr-only">Toggle Dropdown</span>
-              </button>
-              <ul class="dropdown-menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a href="#">Separated link</a></li>
-              </ul>
+        <section ng-if="tela==3"  id="tela3" data-apelido="edicao">
+            <div class="container">
+                <div class="">
+                    <div class="input-group">
+                      <span class="input-group-addon">Data</span>
+                      <input type="text" ng-model="itemSelecionado.data" class="form-control" />
+                    </div> 
+                    <br />
+                    <div class="input-group">
+                      	<span class="input-group-addon">Categoria</span>
+						<select class="form-control" ng-model="itemSelecionado.categoria">
+							<option value="CORRENTE">Corrente</option>
+							<option value="TROCADEOLEO">Troca de Óleo</option>
+							<option value="COMBUSTIVEL">Combustível</option>
+						</select>
+                    </div>   
+                    <br />
+                    <div class="input-group">
+                      <span class="input-group-addon">Kilometragem</span>
+                      <input type="text" ng-model="itemSelecionado.kilometragem" class="form-control" />
+                    </div> 
+                    <br />
+                    <div class="input-group">
+                      <span class="input-group-addon">Observações</span>
+                      <input type="text" ng-model="itemSelecionado.observacoes" class="form-control" />
+                    </div> 
+                </div>
             </div>
-            <div class="input-group">
-              <span class="input-group-addon" id="basic-addon1">Ano</span>
-              <input type="text" class="form-control" placeholder="" aria-describedby="basic-addon1">
-            </div>   
-            <br />
-            <div class="input-group">
-              <span class="input-group-addon" id="basic-addon1">Fabricante</span>
-              <input type="text" class="form-control" placeholder="" aria-describedby="basic-addon1">
-            </div> 
-            <br />
-            <div class="input-group">
-              <span class="input-group-addon" id="basic-addon1">Modelo</span>
-              <input type="text" class="form-control" placeholder="" aria-describedby="basic-addon1">
-            </div> 
-            <div class="row">
-                <a class="btn btn-success col-md-4" ng-click="salvar()">Salvar</a>         
-                <a class="btn btn-warning col-md-4" ng-click="voltar()">Voltar</a>         
-                <a class="btn btn-danger col-md-4" ng-click="deletar(entidadeSelecionada.id)">Excluir</a>         
+            <div class="">
+                <a class="btn btn-success " ng-click="salvar()">Salvar</a>         
+                <a class="btn btn-warning " ng-click="mudarTela(2)">Voltar</a>         
+                <a class="btn btn-danger " ng-click="deletar(entidadeSelecionada.id)">Excluir</a>         
             </div>
         </section>
         <nav>

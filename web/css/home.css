@@ -2,7 +2,7 @@
   border-bottom: solid 1px #E1E1E1;
   background-color: #F8F8F8;
   height: 44px;
-  position: fixed;
+  position: absolute;
   width: 100%;
   z-index: 1;
 }
@@ -24,60 +24,27 @@
 #home section#tela1 .thumbnail i.fas {
   font-size: 50px;
 }
+#home section#tela2 ul li {
+  text-align: left;
+}
 #home section#tela2 ul li a {
+  float: right;
   color: red;
+  margin-left: 5px;
 }
 #home section#tela3 li {
   border-bottom: solid 1px #19152d;
   text-align: left;
 }
 #home section#tela3 a {
-  font-size: 20px;
   margin: 11px auto;
-  display: block;
-  width: 304px;
-  position: relative;
-}
-#home section#tela3 a .total {
-  font-size: 15px;
-}
-#home section#tela3 a .data {
-  color: gray;
-  font-size: 20px;
-  line-height: 14px;
-  position: absolute;
-  top: 3px;
-  border-left: solid 5px;
-  padding-left: 4px;
-}
-#home section#tela3 a .horas {
-  margin-left: 120px;
-  position: absolute;
-}
-#home section#tela3 a .horas .hora {
-  color: #ffffff;
-  margin: 0px 3px;
-  font-size: 11px;
-  padding: 6px;
-  background-color: #337ab7;
-  border-radius: 12px;
-  line-height: 8px;
-  float: right;
-}
-#home section#tela3 a .previsao {
-  width: 216px;
-}
-#home section#tela2 .hora {
-  color: #ffffff;
-  font-size: 18px;
-  background-color: #337ab7;
-  width: 200px;
+  width: 29%;
 }
 #home nav {
   border-top: solid 1px #F0EFF5;
   background-color: #F8F8F8;
   height: 49px;
-  position: fixed;
+  position: absolute;
   bottom: 0%;
   width: 100%;
   text-align: center;
@@ -106,4 +73,9 @@
 }
 #home nav ul li.ativado a i {
   color: #0070ff;
+}
+@media (min-width: 768px) {
+  .container {
+    max-width: 320px;
+  }
 }

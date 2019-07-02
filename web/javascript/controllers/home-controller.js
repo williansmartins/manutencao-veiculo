@@ -3,7 +3,7 @@ angular.module('principal')
 	function ($scope, $uibModal, $log, $document, $location, $window, $filter, $rootScope, $localStorage, $rootScope, ManutencaoService) {
 
     $scope.temErro = false;
-    $scope.tela = 1;
+    $scope.tela = 2;
     $scope.mensagem = "";
     $scope.form = {
     	"name": "",
@@ -13,7 +13,7 @@ angular.module('principal')
     $scope.$storage = $localStorage;
     $scope.lista = {};
     $scope.sucesso = false;
-    $scope.itemSelecionado = null;
+    $scope.itemSelecionado = new Object();
     $scope.tituloHome = "Manutenção de Veículos";
     $scope.titulo = $scope.tituloHome;
 
@@ -38,10 +38,6 @@ angular.module('principal')
     	$window.location.href = "#login";
     }
 
-    $scope.voltar = function(){
-        $scope.mudarTela(3);
-    }
-
     var buscarTudo = function(){
         ManutencaoService.buscarTudo()
         .success(function(response, status, a){ 
@@ -64,13 +60,7 @@ angular.module('principal')
     }
 
     var criar = function(){
-        var objeto = {
-            "fabricante": "Honda-WEB",
-            "modelo": "FIT",
-            "ano": "2010"
-        }
-
-        ManutencaoService.criar(objeto)
+        ManutencaoService.criar($scope.itemSelecionado)
         .success(function(response){ 
             console.info(response); 
         })
@@ -80,14 +70,7 @@ angular.module('principal')
     }
 
     var atualizar = function(){
-        var objeto = {
-            "id" : "3",
-            "fabricante": "Honda-Novo",
-            "modelo": "FIT",
-            "ano": "2010"
-        }
-
-        ManutencaoService.atualizar(objeto)
+        ManutencaoService.atualizar($scope.itemSelecionado)
         .success(function(response){ 
             console.info(response); 
         })
@@ -107,9 +90,35 @@ angular.module('principal')
         })
     }
 
+    $scope.salvar = function(){
+        if($scope.itemSelecionado.id){
+            atualizar();
+        }else{
+            criar();
+        }
+
+        
+        resetItemSelecionado();
+    }
+
+    $scope.prepararParaEditar = function(item){
+        $scope.itemSelecionado = item;
+        $scope.mudarTela(3);
+    }
+
+    var resetItemSelecionado = function(){
+        $scope.itemSelecionado = {
+            categoria: "", 
+            data: "", 
+            kilometragem: "", 
+            modelo: "", 
+            observacoes: ""
+        };
+    }
+
     init = function() {
         buscarTudo();
-        buscarPorID();
+        //buscarPorID();
         // excluir();
         // atualizar();
     };

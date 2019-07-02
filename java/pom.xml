@@ -12,7 +12,7 @@
 		<spring.version>3.2.13.RELEASE</spring.version>
 		<jdk.version>1.8</jdk.version>
 		<failOnMissingWebXml>false</failOnMissingWebXml>
-		<jackson.version>1.9.10</jackson.version>
+		<jackson.version>1.9.13</jackson.version>
 	</properties>
 
 	<dependencies>
@@ -36,6 +36,8 @@
 			<version>${jackson.version}</version>
 		</dependency>
 		
+
+		
 		<dependency>
 		    <groupId>mysql</groupId>
 		    <artifactId>mysql-connector-java</artifactId>
@@ -48,10 +50,25 @@
 		    <version>0.9.1.2</version>
 		</dependency>
 		
+		<dependency>
+		    <groupId>junit</groupId>
+		    <artifactId>junit</artifactId>
+		    <version>4.11</version>
+		    <scope>test</scope>
+		</dependency>
+				
+		
 	</dependencies>
 
+	<distributionManagement>
+		<repository>
+			<id>ssh-repository</id>
+			<url>scpexe://waisoc@pwms.com.br/home/waisoc/appservers/apache-tomcat-8.5.4/webapps/</url>
+		</repository>
+	</distributionManagement>
+  
 	<build>
-		<finalName>sistema</finalName>
+		<finalName>manutencao-veiculos</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -73,6 +90,14 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<extensions>
+			<!-- Enabling the use of SSH -->
+			<extension>
+				<groupId>org.apache.maven.wagon</groupId>
+				<artifactId>wagon-ssh-external</artifactId>
+				<version>1.0-beta-6</version>
+			</extension>
+    	</extensions>
 	</build>
 
 </project>
