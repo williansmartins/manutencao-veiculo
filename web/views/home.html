@@ -152,8 +152,12 @@
                     </div> 
                     <br />
                     <div class="input-group">
-                      <span class="input-group-addon">Categoria</span>
-                      <input type="text" ng-model="itemSelecionado.categoria" class="form-control" />
+                      	<span class="input-group-addon">Categoria</span>
+						<select class="form-control" ng-model="itemSelecionado.categoria">
+							<option value="CORRENTE">Corrente</option>
+							<option value="TROCADEOLEO">Troca de Óleo</option>
+							<option value="COMBUSTIVEL">Combustível</option>
+						</select>
                     </div>   
                     <br />
                     <div class="input-group">
