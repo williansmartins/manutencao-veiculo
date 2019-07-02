@@ -1,5 +1,7 @@
 angular.module('principal')
-.config(function($httpProvider, $base64, $provide) {
+.config(function($httpProvider, $base64, $provide, $mdThemingProvider) {
+	$mdThemingProvider.theme('default')
+    .dark();
 	
 	$provide.factory('MyHttpInterceptor', function($q, $location, $localStorage, $injector, ComponentModal) {
 	return {
