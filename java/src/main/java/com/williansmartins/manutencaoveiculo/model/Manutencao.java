@@ -5,18 +5,16 @@ import java.util.Date;
 
 public class Manutencao implements Serializable{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private int id;
 	private int id_veiculo;
 	private int id_usuario;
-//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "UTC")
 	private Date data;
 	private Categoria categoria;
 	private int kilometragem;
 	private String observacoes;
+	@SuppressWarnings("unused")
+	private String categoriaHumanizada;
 
 	public Manutencao() {
 		System.out.println("aqui");
@@ -90,4 +88,8 @@ public class Manutencao implements Serializable{
 		this.observacoes = observacoes;
 	}
 	
+	public String getCategoriaHumanizada() {
+		return categoria.getItem();
+	}
+
 }
