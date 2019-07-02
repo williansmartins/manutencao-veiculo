@@ -44,92 +44,8 @@
             </div>
         </section>
         <section ng-if="tela==2" id="tela2" data-apelido="listagem">
-            <ul class="list-group hide">
-
-                <li class="list-group-item ng-binding ng-scope" >
-                    
-                    <span class="label label-primary ng-binding">2019-06-03</span>
-                    COMBUSTIVEL
-                    <a href="javascript:void(0)" class="" ng-show="item.confirmar!=true" ng-click="item.confirmar=true">
-                        <i class="fas fa-trash"></i>
-                    </a> 
-                    <a href="javascript:void(0)" ng-click="prepararParaEditar(item)">
-                        <i class="fas fa-edit"></i>
-                    </a>    
-                    <span class="label label-danger ng-hide" ng-show="item.confirmar==true" ng-click="excluir(item);">confirmar?</span>
-                </li><li class="list-group-item ng-binding ng-scope" >
-                    
-                    <span class="label label-primary ng-binding">2019-06-03</span>
-                    COMBUSTIVEL
-                    <a href="javascript:void(0)" class="" ng-show="item.confirmar!=true" ng-click="item.confirmar=true">
-                        <i class="fas fa-trash"></i>
-                    </a> 
-                    <a href="javascript:void(0)" ng-click="prepararParaEditar(item)">
-                        <i class="fas fa-edit"></i>
-                    </a>    
-                    <span class="label label-danger ng-hide" ng-show="item.confirmar==true" ng-click="excluir(item);">confirmar?</span>
-                </li><li class="list-group-item ng-binding ng-scope" >
-                    
-                    <span class="label label-primary ng-binding">2019-06-04</span>
-                    COMBUSTIVEL
-                    <a href="javascript:void(0)" class="" ng-show="item.confirmar!=true" ng-click="item.confirmar=true">
-                        <i class="fas fa-trash"></i>
-                    </a> 
-                    <a href="javascript:void(0)" ng-click="prepararParaEditar(item)">
-                        <i class="fas fa-edit"></i>
-                    </a>    
-                    <span class="label label-danger ng-hide" ng-show="item.confirmar==true" ng-click="excluir(item);">confirmar?</span>
-                </li><li class="list-group-item ng-binding ng-scope" >
-                    
-                    <span class="label label-primary ng-binding">2019-06-02</span>
-                    COMBUSTIVEL
-                    <a href="javascript:void(0)" class="" ng-show="item.confirmar!=true" ng-click="item.confirmar=true">
-                        <i class="fas fa-trash"></i>
-                    </a> 
-                    <a href="javascript:void(0)" ng-click="prepararParaEditar(item)">
-                        <i class="fas fa-edit"></i>
-                    </a>    
-                    <span class="label label-danger ng-hide" ng-show="item.confirmar==true" ng-click="excluir(item);">confirmar?</span>
-                </li><li class="list-group-item ng-binding ng-scope" >
-                    
-                    <span class="label label-primary ng-binding">2019-06-02</span>
-                    COMBUSTIVEL
-                    <a href="javascript:void(0)" class="" ng-show="item.confirmar!=true" ng-click="item.confirmar=true">
-                        <i class="fas fa-trash"></i>
-                    </a> 
-                    <a href="javascript:void(0)" ng-click="prepararParaEditar(item)">
-                        <i class="fas fa-edit"></i>
-                    </a>    
-                    <span class="label label-danger ng-hide" ng-show="item.confirmar==true" ng-click="excluir(item);">confirmar?</span>
-                </li><li class="list-group-item ng-binding ng-scope" >
-                    
-                    <span class="label label-primary ng-binding">2019-06-02</span>
-                    COMBUSTIVEL
-                    <a href="javascript:void(0)" class="" ng-show="item.confirmar!=true" ng-click="item.confirmar=true">
-                        <i class="fas fa-trash"></i>
-                    </a> 
-                    <a href="javascript:void(0)" ng-click="prepararParaEditar(item)">
-                        <i class="fas fa-edit"></i>
-                    </a>    
-                    <span class="label label-danger ng-hide" ng-show="item.confirmar==true" ng-click="excluir(item);">confirmar?</span>
-                </li><li class="list-group-item ng-binding ng-scope" >
-                    
-                    <span class="label label-primary ng-binding">2019-06-02</span>
-                    COMBUSTIVEL
-                    <a href="javascript:void(0)" class="" ng-show="item.confirmar!=true" ng-click="item.confirmar=true">
-                        <i class="fas fa-trash"></i>
-                    </a> 
-                    <a href="javascript:void(0)" ng-click="prepararParaEditar(item)">
-                        <i class="fas fa-edit"></i>
-                    </a>    
-                    <span class="label label-danger ng-hide" ng-show="item.confirmar==true" ng-click="excluir(item);">confirmar?</span>
-                </li>
-                
-            </ul>
             <ul class="list-group">
-
                 <li class="list-group-item" ng-repeat="(key, item) in lista">
-                    
                     <span class="label label-primary">{{item.data}}</span>
                     {{item.categoria}}
                     <a href="javascript:void(0)" class="" ng-show="item.confirmar!=true" ng-click="item.confirmar=true">
@@ -140,7 +56,6 @@
                     </a>    
                     <span class="label label-danger" ng-show="item.confirmar==true" ng-click="excluir(item);">confirmar?</span>
                 </li>
-                
             </ul>
         </section>
         <section ng-if="tela==3"  id="tela3" data-apelido="edicao">
@@ -152,8 +67,12 @@
                     </div> 
                     <br />
                     <div class="input-group">
-                      <span class="input-group-addon">Categoria</span>
-                      <input type="text" ng-model="itemSelecionado.categoria" class="form-control" />
+                      	<span class="input-group-addon">Categoria</span>
+						<select class="form-control" ng-model="itemSelecionado.categoria">
+							<option value="CORRENTE">Corrente</option>
+							<option value="TROCADEOLEO">Troca de Óleo</option>
+							<option value="COMBUSTIVEL">Combustível</option>
+						</select>
                     </div>   
                     <br />
                     <div class="input-group">
