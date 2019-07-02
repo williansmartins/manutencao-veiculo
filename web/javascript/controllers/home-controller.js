@@ -106,6 +106,17 @@ angular.module('principal')
         $scope.mudarTela(3);
     }
 
+    $scope.novaManutencao = function(item){
+        $scope.itemSelecionado = {
+            categoria: item, 
+            data: "", 
+            kilometragem: "", 
+            modelo: "", 
+            observacoes: ""
+        };
+        $scope.mudarTela(3);
+    }
+
     var resetItemSelecionado = function(){
         $scope.itemSelecionado = {
             categoria: "", 
