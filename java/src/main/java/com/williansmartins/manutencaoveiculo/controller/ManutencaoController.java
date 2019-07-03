@@ -1,7 +1,11 @@
 package com.williansmartins.manutencaoveiculo.controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -62,6 +66,26 @@ public class ManutencaoController {
 		System.out.println("Deletando o objeto com id:" + id);
 		int deuCerto = dao.excluir(Integer.valueOf(id));
 		return deuCerto;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/categorias", method=RequestMethod.GET)
+	public Map<String, String> buscarCategorias() {
+//        Categoria[] values = Categoria.values();
+//        String[][] result = new String[values.length][2]; 
+//
+//        for (int i = 0; i < values.length; ++i) {
+//            String[] pair = {values[i].name(), values[i].toString()};
+//            result[i] = pair;
+//        }
+//
+//        return result;
+		return getList();
+	}
+	
+	public static Map<String, String> getList() {
+	    return Arrays.stream(Categoria.values())
+	            .collect(Collectors.toMap(Categoria::name, Categoria::getLabel));
 	}
 	
 }

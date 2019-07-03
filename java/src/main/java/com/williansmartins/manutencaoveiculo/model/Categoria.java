@@ -8,14 +8,19 @@ public enum Categoria {
 	CORRENTE("Corrente"), 
 	RELACAO("Relação");
 	
-	private String item;
+	private String label;
 
 	Categoria(String item){
-		this.item = item;
+		this.label = item;
 	}
 	
-	public String getItem(){
-		return this.item;
+	public String getLabel(){
+		return this.label;
 	}
 
+	@Override
+	public String toString() {
+	    return name() + ", " + getLabel();
+	}
+	
 }
