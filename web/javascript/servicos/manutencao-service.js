@@ -4,6 +4,13 @@ angular
 
 function ManutencaoService ($q, $window, $http) {
     return {
+    	
+    	buscarCategorias: function(){
+            return $http({
+                method : "GET",
+                url : barramento + "/manutencoes/categorias"
+            })
+        },
 
         buscarTudo: function(){
             return $http({

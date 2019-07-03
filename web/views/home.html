@@ -1,4 +1,4 @@
- <div id="home" ng-cloak>
+ <div id="home">
     <div class="wrapper">
         <header>
             <h2>{{titulo}}</h2>
@@ -69,15 +69,14 @@
                     <div class="input-group">
                       	<span class="input-group-addon">Categoria</span>
 						<select class="form-control" ng-model="itemSelecionado.categoria">
-							<option value="CORRENTE">Corrente</option>
-							<option value="TROCADEOLEO">Troca de Óleo</option>
-							<option value="COMBUSTIVEL">Combustível</option>
+							<option ng-repeat="(key, value) in categorias" value="{{key}}">{{value}}</option>
+							<!-- <option ng-repeat="option in data.availableOptions" value="{{option.id}}">{{option.name}}</option> -->
 						</select>
                     </div>   
                     <br />
                     <div class="input-group">
                       <span class="input-group-addon">Kilometragem</span>
-                      <input type="text" ng-model="itemSelecionado.kilometragem" class="form-control" />
+                      <input type="number" ng-model="itemSelecionado.kilometragem" class="form-control" onkeydown="javascript: return event.keyCode == 69 ? false : true"/>
                     </div> 
                     <br />
                     <div class="input-group">
