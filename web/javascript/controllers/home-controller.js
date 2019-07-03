@@ -27,6 +27,7 @@ angular.module('principal')
     	if(tela==2){
             buscarTudo();
             $scope.titulo = "Manutenções realizadas";
+        	$scope.itemSelecionado = new Object();
     	}
 
         if(tela==3){
@@ -43,10 +44,10 @@ angular.module('principal')
         ManutencaoService.buscarTudo()
         .success(function(response, status, a){ 
             $scope.lista = response;
-            console.info(response); 
+            //console.info(response); 
         })
         .error(function(response, status, a){ 
-            console.info(response); 
+            //console.info(response); 
         })
     }
 
@@ -54,51 +55,51 @@ angular.module('principal')
         ManutencaoService.buscarCategorias()
         .success(function(response, status, a){ 
             $scope.categorias = response;
-            console.info(response); 
+            //console.info(response); 
         })
         .error(function(response, status, a){ 
-            console.info(response); 
+            //console.info(response); 
         })
     }
 
     var buscarPorID = function(){
         ManutencaoService.buscarPorID(4051)
         .success(function(response){ 
-            console.info(response); 
+            //console.info(response); 
         })
         .error(function(response){ 
-            console.info(response); 
+            //console.info(response); 
         })
     }
 
     var criar = function(){
         ManutencaoService.criar($scope.itemSelecionado)
         .success(function(response){ 
-            console.info(response); 
+            //console.info(response); 
         })
         .error(function(response){ 
-            console.info(response); 
+            //console.info(response); 
         })
     }
 
     var atualizar = function(){
         ManutencaoService.atualizar($scope.itemSelecionado)
         .success(function(response){ 
-            console.info(response); 
+            //console.info(response); 
         })
         .error(function(response){ 
-            console.info(response); 
+            //console.info(response); 
         })
     }
 
     $scope.excluir = function(item){
         ManutencaoService.excluir(item.id)
         .success(function(response){ 
-            console.info(response); 
+            //console.info(response); 
             buscarTudo();
         })
         .error(function(response){ 
-            console.info(response); 
+            //console.info(response); 
         })
     }
 
@@ -114,6 +115,7 @@ angular.module('principal')
     }
 
     $scope.prepararParaEditar = function(item){
+    	item.data = new Date(item.data + 'T00:00:00');
         $scope.itemSelecionado = item;
         $scope.mudarTela(3);
     }
