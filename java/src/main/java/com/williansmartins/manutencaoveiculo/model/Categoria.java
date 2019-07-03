@@ -17,10 +17,5 @@ public enum Categoria {
 	public String getLabel(){
 		return this.label;
 	}
-
-	@Override
-	public String toString() {
-	    return name() + ", " + getLabel();
-	}
 	
 }

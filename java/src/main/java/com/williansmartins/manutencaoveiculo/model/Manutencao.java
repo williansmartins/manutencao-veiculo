@@ -89,7 +89,7 @@ public class Manutencao implements Serializable{
 	}
 	
 	public String getCategoriaHumanizada() {
-		return categoria.getItem();
+		return categoria.getLabel();
 	}
 
 }
