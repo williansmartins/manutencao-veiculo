@@ -15,6 +15,7 @@ public class Manutencao implements Serializable{
 //    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "UTC")
 	private Date data;
 	private Categoria categoria;
+	private String categoriaHumanizada;
 	private int kilometragem;
 	private String observacoes;
 
@@ -88,6 +89,11 @@ public class Manutencao implements Serializable{
 
 	public void setObservacoes(String observacoes) {
 		this.observacoes = observacoes;
+	
+	}
+	
+	public String getCategoriaHumanizada() {
+		return this.categoria.getItem();
 	}
 	
 }
