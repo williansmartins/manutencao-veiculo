@@ -3,6 +3,8 @@ package com.williansmartins.manutencaoveiculo.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.williansmartins.manutencaoveiculo.controller.ManutencaoController;
+
 public class Manutencao implements Serializable{
 
 	/**
@@ -95,5 +97,7 @@ public class Manutencao implements Serializable{
 	public String getCategoriaHumanizada() {
 		return this.categoria.getItem();
 	}
+	
+	
 	
 }

@@ -6,7 +6,9 @@ public enum Categoria {
 	PNEUDIANTEIRO("Pneu dianteiro"), 
 	PNEUTRASEIRO("Pneu traseiro"), 
 	CORRENTE("Corrente"), 
-	RELACAO("Relação");
+	RELACAO("Relação"),
+	FILTRODECOMBUSTIVEL("Filtro de Combustível");
+	
 	
 	private String item;
 

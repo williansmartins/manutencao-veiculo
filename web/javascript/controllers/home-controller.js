@@ -12,6 +12,7 @@ angular.module('principal')
     };
     $scope.$storage = $localStorage;
     $scope.lista = {};
+    $scope.categorias = {};
     $scope.sucesso = false;
     $scope.itemSelecionado = new Object();
     $scope.tituloHome = "Manutenção de Veículos";
@@ -42,6 +43,17 @@ angular.module('principal')
         ManutencaoService.buscarTudo()
         .success(function(response, status, a){ 
             $scope.lista = response;
+            console.info(response); 
+        })
+        .error(function(response, status, a){ 
+            console.info(response); 
+        })
+    }
+
+     var buscarCategorias = function(){
+        ManutencaoService.buscarCategorias()
+        .success(function(response, status, a){ 
+            $scope.categorias = response;
             console.info(response); 
         })
         .error(function(response, status, a){ 
@@ -129,6 +141,7 @@ angular.module('principal')
 
     init = function() {
         buscarTudo();
+        buscarCategorias();
         //buscarPorID();
         // excluir();
         // atualizar();

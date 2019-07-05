@@ -64,4 +64,10 @@ public class ManutencaoController {
 		return deuCerto;
 	}
 	
+	@RequestMapping(value="categorias", method=RequestMethod.GET)  
+	@ResponseBody
+	public Categoria[] buscarCategorias() {
+		return Categoria.values();
+		
+	}
 }

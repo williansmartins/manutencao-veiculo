@@ -69,9 +69,7 @@
                     <div class="input-group">
                       	<span class="input-group-addon">Categoria</span>
 						<select class="form-control" ng-model="itemSelecionado.categoria">
-							<option value="CORRENTE">Corrente</option>
-							<option value="TROCADEOLEO">Troca de Óleo</option>
-							<option value="COMBUSTIVEL">Combustível</option>
+							<option ng-repeat="categoria in categorias" value="{{categoria}}">{{categoria}}</option>
 						</select>
                     </div>   
                     <br />

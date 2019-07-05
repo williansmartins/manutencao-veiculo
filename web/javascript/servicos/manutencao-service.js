@@ -12,6 +12,13 @@ function ManutencaoService ($q, $window, $http) {
             })
         },
 
+        buscarCategorias: function(){
+            return $http({
+                method : "GET",
+                url : barramento + "/manutencoes/categorias"
+            })
+        },
+
         buscarPorID : function (id) {
             return $http({
                 method : "GET",
